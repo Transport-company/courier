@@ -59,6 +59,12 @@ public class Delivery {
     private Address shippingAddress;
 
     /**
+     * Enable to notify client about cargo  //TODO определиться с необходимостью этого поля
+     */
+    @Column(name = "enabled_notifications")
+    private Boolean enabledNotifications;
+
+    /**
      * Confirmation code
      */
     @Column(name = "code")
