@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS address (
     id                             bigserial          PRIMARY KEY,
-    region                       varchar(255)   NOT NULL,
-    city                          varchar(255)   NOT NULL,
+    region                       varchar(128)   NOT NULL,
+    city                          varchar(128)   NOT NULL,
     street                       varchar(255),
-    house                       varchar(32)     NOT NULL,
-    apartment                 varchar(32),
+    house                       varchar(16)     NOT NULL,
+    apartment                 varchar(16),
     created                     TIMESTAMP     NOT NULL,
     updated                     TIMESTAMP    NOT NULL);
 
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS courier (
     first_name                  varchar(32)    NOT NULL,
     last_name                  varchar(32)    NOT NULL,
     age                           int2               NOT NULL,
-    city                           varchar(32)   NOT NULL,
+    city                           varchar(128)  NOT NULL,
     created                     TIMESTAMP     NOT NULL,
     updated                     TIMESTAMP    NOT NULL);
 
