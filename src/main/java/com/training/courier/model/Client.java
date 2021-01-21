@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -20,32 +21,33 @@ public class Client {
     /**
      * Unique identifier
      */
-    @Column(name = "id")
+    @Id
+    @Column(name = "id", nullable = false)
     private Long id;
 
     /**
      * Name
      */
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     /**
      * Email
      */
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     /**
      * Registration time
      */
     @CreationTimestamp
-    @Column(name = "created")
+    @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
     /**
      * Update time
      */
     @UpdateTimestamp
-    @Column(name = "updated")
+    @Column(name = "updated", nullable = false)
     private LocalDateTime updated;
 }

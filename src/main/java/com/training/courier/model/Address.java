@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -20,19 +21,20 @@ public class Address {
     /**
      * Unique identifier
      */
-    @Column(name = "id")
+    @Id
+    @Column(name = "id", nullable = false)
     private Long id;
 
     /**
      * Country region
      */
-    @Column(name = "region")
+    @Column(name = "region", nullable = false)
     private String region;
 
     /**
      * City
      */
-    @Column(name = "city")
+    @Column(name = "city", nullable = false)
     private String city;
 
     /**
@@ -44,7 +46,7 @@ public class Address {
     /**
      * House number
      */
-    @Column(name = "house")
+    @Column(name = "house", nullable = false)
     private String house;
 
     /**
@@ -57,13 +59,13 @@ public class Address {
      * Registration time
      */
     @CreationTimestamp
-    @Column(name = "created")
+    @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
     /**
      * Update time
      */
     @UpdateTimestamp
-    @Column(name = "updated")
+    @Column(name = "updated", nullable = false)
     private LocalDateTime updated;
 }

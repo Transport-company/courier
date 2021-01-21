@@ -21,32 +21,33 @@ public class Salary {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     /**
      * Courier information
      */
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "courier_id", referencedColumnName = "id")
+    @JoinColumn(name = "courier_id", referencedColumnName = "id", nullable = false)
     private Courier courier;
 
     /**
      * Courier salary
      */
-    @Column(name = "sum")
+    @Column(name = "sum", nullable = false)
     private BigDecimal sum;
 
     /**
      * Registration time
      */
     @CreationTimestamp
-    @Column(name = "created")
+    @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
     /**
      * Update time
      */
     @UpdateTimestamp
-    @Column(name = "updated")
+    @Column(name = "updated", nullable = false)
     private LocalDateTime updated;
 }

@@ -12,57 +12,52 @@ import java.time.LocalDateTime;
  * Courier delivery entity
  */
 @Entity
-@Table(name = "delivery")
+@Table(name = "courier_delivery")
 @Data
-public class Delivery {
+public class CourierDelivery {
 
     /**
      * Unique identifier
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     /**
      * Cargo information
      */
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "cargo_id", referencedColumnName = "id")
+    @JoinColumn(name = "cargo_id", referencedColumnName = "id", nullable = false)
     private Cargo cargo;
 
     /**
      * Courier information
      */
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "courier_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "courier_id", referencedColumnName = "id", nullable = false)
     private Courier courier;
 
     /**
      * Recipient client information
      */
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     private Client client;
 
     /**
      * Sending address (for returns)
      */
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "sending_address_id", referencedColumnName = "id")
+    @JoinColumn(name = "sending_address_id", referencedColumnName = "id", nullable = false)
     private Address sendingAddress;
 
     /**
      * Shipping address
      */
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "shipping_address_id", referencedColumnName = "id")
+    @JoinColumn(name = "shipping_address_id", referencedColumnName = "id", nullable = false)
     private Address shippingAddress;
-
-    /**
-     * Enable to notify client about cargo  //TODO определиться с необходимостью этого поля
-     */
-    @Column(name = "enabled_notifications")
-    private Boolean enabledNotifications;
 
     /**
      * Confirmation code
@@ -73,21 +68,21 @@ public class Delivery {
     /**
      * Delivery status
      */
-    @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private Status status;
 
     /**
      * Registration time
      */
     @CreationTimestamp
-    @Column(name = "created")
+    @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
     /**
      * Update time
      */
     @UpdateTimestamp
-    @Column(name = "updated")
+    @Column(name = "updated", nullable = false)
     private LocalDateTime updated;
 }

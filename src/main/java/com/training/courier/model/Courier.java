@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 
 /**
@@ -21,31 +22,50 @@ public class Courier {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     /**
-     * Name
+     * First name
      */
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    /**
+     * Last name
+     */
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    /**
+     * Age //TODO а нужен ли возраст?
+     */
+    @Column(name = "age", nullable = false)
+    private Integer age;
 
     /**
      * Working city
      */
-    @Column(name = "city")
+    @Column(name = "city", nullable = false)
     private String city;
+
+    /**
+     * Deliveries belonging to the courier
+     */
+    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<CourierDelivery> courierDeliveries;
 
     /**
      * Registration time
      */
     @CreationTimestamp
-    @Column(name = "created")
+    @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
     /**
      * Update time
      */
     @UpdateTimestamp
-    @Column(name = "updated")
+    @Column(name = "updated", nullable = false)
     private LocalDateTime updated;
 }
