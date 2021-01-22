@@ -38,7 +38,7 @@ public interface CourierDeliveryService {
      *
      * @return {@link List<CourierDelivery> courier deliveries}
      */
-    List<CourierDelivery> getAllPending();
+    List<CourierDelivery> getPending();
 
 
     /**

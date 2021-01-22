@@ -21,10 +21,11 @@ public interface CourierDeliveryController {
     ResponseEntity<CourierDeliveriesPageResponse> getAll(Pageable pageable);
 
 
-    @GetMapping("/all/pending")
+    @GetMapping("/pending")
     ResponseEntity<CourierDeliveriesPageResponse> getPendingDeliveries(Pageable pageable);
 
     @PostMapping
     ResponseEntity<CourierDeliveryResponse> updateCourierDelivery(
             @RequestBody UpdateCourierDeliveryRequest updateCourierDeliveryRequest);
 }
+
