@@ -22,7 +22,7 @@ public class Cargo {
      * Unique identifier
      */
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     /**
