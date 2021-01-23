@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "/deliveries",
-url = "https://core_url"
-//configuration =
-//fallback =
-)
+@FeignClient(name = "core",
+        value = "/deliveries",
+        url = "https://core_url"
+        //configuration =
+        // fallback =
+        )
 public interface CoreClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/pending")
