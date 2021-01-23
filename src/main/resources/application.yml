@@ -13,7 +13,7 @@ spring:
 
 springdoc:
     swagger-ui:
-      path: /doc/swagger-ui.html
+      path: courier/doc/swagger-ui.html
 
 server:
     servlet:

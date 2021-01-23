@@ -20,8 +20,7 @@ public class CourierDelivery {
      * Unique identifier
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     /**
@@ -35,7 +34,7 @@ public class CourierDelivery {
      * Courier information
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "courier_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "courier_id", referencedColumnName = "id")
     private Courier courier;
 
     /**

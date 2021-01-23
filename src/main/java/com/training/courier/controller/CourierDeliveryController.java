@@ -1,9 +1,9 @@
 package com.training.courier.controller;
 
 import com.training.courier.Urls;
-import com.training.courier.dto.request.UpdateCourierDeliveryRequest;
-import com.training.courier.dto.response.CourierDeliveriesPageResponse;
-import com.training.courier.dto.response.CourierDeliveryResponse;
+import com.training.courier.dto.request.UpdateDeliveryRequest;
+import com.training.courier.dto.response.DeliveriesPageResponse;
+import com.training.courier.dto.response.DeliveryResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,20 +12,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(Urls.CourierDeliveries.FULL)
 public interface CourierDeliveryController {
 
-    String COURIER_DELIVERY_ID_PATH_VARIABLE = "/{id}";
+    String ID_PATH_VARIABLE = "/{id}";
 
-    @GetMapping(COURIER_DELIVERY_ID_PATH_VARIABLE)
-    ResponseEntity<CourierDeliveryResponse> getById(@PathVariable("id") Long id);
+    @GetMapping(ID_PATH_VARIABLE)
+    ResponseEntity<DeliveryResponse> getById(@PathVariable("id") Long id);
 
     @GetMapping("/all")
-    ResponseEntity<CourierDeliveriesPageResponse> getAll(Pageable pageable);
-
+    ResponseEntity<DeliveriesPageResponse> getAll(Pageable pageable);
 
     @GetMapping("/pending")
-    ResponseEntity<CourierDeliveriesPageResponse> getPendingDeliveries(Pageable pageable);
+    ResponseEntity<DeliveriesPageResponse> getPendingDeliveries(Pageable pageable);
 
-    @PostMapping
-    ResponseEntity<CourierDeliveryResponse> updateCourierDelivery(
-            @RequestBody UpdateCourierDeliveryRequest updateCourierDeliveryRequest);
+    @PutMapping(ID_PATH_VARIABLE)
+    ResponseEntity<DeliveryResponse> updateDelivery(@PathVariable("id") Long id,
+                                                    @RequestBody UpdateDeliveryRequest updateDeliveryRequest);
 }
 

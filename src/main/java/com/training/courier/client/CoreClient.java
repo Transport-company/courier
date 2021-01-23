@@ -1,8 +1,8 @@
 package com.training.courier.client;
 
-import com.training.courier.dto.request.UpdateCourierDeliveryRequest;
-import com.training.courier.dto.response.CourierDeliveriesPageResponse;
-import com.training.courier.dto.response.CourierDeliveryResponse;
+import com.training.courier.dto.request.UpdateDeliveryRequest;
+import com.training.courier.dto.response.DeliveriesPageResponse;
+import com.training.courier.dto.response.DeliveryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +16,8 @@ url = "https://core_url"
 public interface CoreClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/pending")
-    CourierDeliveriesPageResponse getPendingCourierDeliveries(Long id);
-    //^^ преобразовать маппером DeliveriesPageResponse в CourierDeliveriesPageResponse
+    DeliveriesPageResponse getPendingCourierDeliveries();
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
-    CourierDeliveryResponse update(@PathVariable("id") Long id, UpdateCourierDeliveryRequest updateCourierDeliveryRequest);
-    //^^ преобразовать маппером DeliveryResponse в CourierDeliveryResponse
+    DeliveryResponse updateDelivery(@PathVariable("id") Long id, UpdateDeliveryRequest updateDeliveryRequest);
 }

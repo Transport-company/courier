@@ -38,7 +38,7 @@ public class Courier {
     private String lastName;
 
     /**
-     * Age //TODO а нужен ли возраст?
+     * Age
      */
     @Column(name = "age", nullable = false)
     private Integer age;
