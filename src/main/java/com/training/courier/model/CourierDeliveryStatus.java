@@ -3,7 +3,7 @@ package com.training.courier.model;
 /**
  * Delivery status
  */
-public enum Status {
+public enum CourierDeliveryStatus {
 
     /**
      * In warehouse
@@ -28,5 +28,10 @@ public enum Status {
     /**
      * In case of emergency situation
      */
-    LOST
+    LOST,
+
+    /**
+     * Delivery job completed, status synchronized with core
+     */
+    CLOSED
 }

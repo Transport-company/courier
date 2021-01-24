@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -26,10 +27,34 @@ public class Client {
     private Long id;
 
     /**
-     * Name
+     * First name
      */
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    /**
+     * Middle name
+     */
+    @Column(name = "middle_name", nullable = false)
+    private String middleName;
+
+    /**
+     * Last name
+     */
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    /**
+     * Date of birth
+     */
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
+
+    /**
+     * Phone number
+     */
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
     /**
      * Email

@@ -65,11 +65,11 @@ public class CourierDelivery {
     private String code;
 
     /**
-     * Delivery status
+     * Courier delivery status
      */
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
+    @Column(name = "courier_delivery_status", nullable = false)
+    private CourierDeliveryStatus courierDeliveryStatus;
 
     /**
      * Registration time

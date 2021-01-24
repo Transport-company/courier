@@ -19,7 +19,11 @@ CREATE TABLE IF NOT EXISTS cargo (
 
 CREATE TABLE IF NOT EXISTS client (
     id                       int8                PRIMARY KEY,
-    name                     varchar(32)         NOT NULL UNIQUE,
+    first_name               varchar(32)         NOT NULL,
+    middle_name              varchar(32)         NOT NULL,
+    last_name                varchar(32)         NOT NULL,
+    birthday                 date                NOT NULL,
+    phone                    varchar(11)         NOT NULL UNIQUE,
     email                    varchar(32)         NOT NULL UNIQUE,
     created                  timestamp           NOT NULL,
     updated                  timestamp           NOT NULL);
@@ -27,8 +31,10 @@ CREATE TABLE IF NOT EXISTS client (
 CREATE TABLE IF NOT EXISTS courier (
     id                       bigserial           PRIMARY KEY,
     first_name               varchar(32)         NOT NULL,
+    middle_name              varchar(32)         NOT NULL,
     last_name                varchar(32)         NOT NULL,
-    age                      int2                NOT NULL,
+    birthday                 date                NOT NULL,
+    phone                    varchar(11)         NOT NULL UNIQUE,
     city                     varchar(128)        NOT NULL,
     created                  timestamp           NOT NULL,
     updated                  timestamp           NOT NULL);
@@ -41,7 +47,7 @@ CREATE TABLE IF NOT EXISTS courier_delivery (
     sending_address_id       int8                NOT NULL,
     shipping_address_id      int8                NOT NULL,
     code                     varchar(4),
-    status                   varchar(32)         NOT NULL,
+    courier_delivery_status  varchar(16)         NOT NULL,
     created                  timestamp           NOT NULL,
     updated                  timestamp           NOT NULL,
     FOREIGN KEY (cargo_id)            REFERENCES cargo (id),
