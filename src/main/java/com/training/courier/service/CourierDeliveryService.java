@@ -1,4 +1,5 @@
 package com.training.courier.service;
+
 import com.training.courier.client.CoreClient;
 import com.training.courier.model.CourierDelivery;
 import org.springframework.lang.NonNull;
@@ -16,7 +17,6 @@ public interface CourierDeliveryService {
      * microservice repository by unique identifier.
      *
      * @param id unique identifier of {@link CourierDelivery courier delivery}
-     *
      * @return {@link CourierDelivery courierDelivery}
      */
     CourierDelivery getById(@NonNull Long id);
@@ -50,7 +50,6 @@ public interface CourierDeliveryService {
      * in courier microservice repository with is_synchronized = false flag.
      *
      * @param courierDelivery {@link CourierDelivery courier delivery}
-     *
      * @return {@link CourierDelivery courier delivery}
      */
     @Transactional

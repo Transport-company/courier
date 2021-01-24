@@ -33,7 +33,7 @@ public class Salary {
     private Courier courier;
 
     /**
-     *  Date
+     * Date
      */
     @Column(name = "date", nullable = false)
     private LocalDate date;

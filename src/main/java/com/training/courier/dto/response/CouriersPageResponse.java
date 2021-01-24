@@ -1,7 +1,6 @@
 package com.training.courier.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class CouriersPageResponse {
     private List<CourierResponse> content;
 
     /**
-     *  Page size
+     * Page size
      */
     private Integer pageSize;
 
@@ -28,38 +27,23 @@ public class CouriersPageResponse {
     private Integer pageNumber;
 
     /**
-     *
+     * Total number of pages
      */
     private Integer totalPages;
 
+    /**
+     * Total number of elements
+     */
     private Integer totalElements;
 }
 
-/*
+    /*
 
-//    @Schema(description = "list of orders.")
-//    private List<OrderResponse> content;
+    //    @Schema(description = "list of orders.")
+    //    private List<OrderResponse> content;
 
-    /**
-     * Page size.
-     */
-    @Schema(description = "page size")
-    private int size;
-
-    /**
-     * Page number.
-     */
-    @Schema(description = "page number")
-    private int number;
-
-    /**
-     * Total number of pages.
-     */
-    @Schema(description = "total number of pages")
-    private int totalPages;
-
-    /**
-     * Total number of elements.
-     */
-
-
+        /**
+         * Page size.
+         */
+//    @Schema(description = "page size")
+//    private int size;

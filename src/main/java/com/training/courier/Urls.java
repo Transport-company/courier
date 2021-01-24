@@ -3,6 +3,7 @@ package com.training.courier;
 public interface Urls {
 
     String ROOT = "";
+    String ID_PATH_VARIABLE = "{id}";
 
     interface CourierDeliveries {
         String PART = "courier_deliveries";
@@ -14,8 +15,7 @@ public interface Urls {
         String FULL = ROOT + "/" + PART;
 
         interface Id {
-            String PART = "{id}";
-            String FULL = Courier.FULL + "/" + PART;
+            String FULL = Courier.FULL + "/" + ID_PATH_VARIABLE;
 
             interface Salary {
                 String PART = "salary";

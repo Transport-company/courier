@@ -8,17 +8,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "core",
-        value = "/deliveries",
-        url = "https://core_url"
-        //configuration =
-        // fallback =
-        )
+import java.util.List;
+
+@FeignClient(name = "CoreClient",
+        value = "core",
+        url = "https://core_url",
+//        configuration = FeignClientsConfiguration.class,
+        fallback = CoreClientFallback.class)
 public interface CoreClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/pending")
-    DeliveriesPageResponse getPendingCourierDeliveries();
+    String ID_PATH_VARIABLE = "/{id}";
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/{id}", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/pending")
+        //TODO скорректировать эндпоинт
+    List<DeliveryResponse> getPendingCourierDeliveries();
+
+    @RequestMapping(method = RequestMethod.PUT, value = ID_PATH_VARIABLE, consumes = "application/json")
     DeliveryResponse updateDelivery(@PathVariable("id") Long id, UpdateDeliveryRequest updateDeliveryRequest);
 }

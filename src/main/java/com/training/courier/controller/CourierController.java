@@ -32,6 +32,7 @@ public interface CourierController {
     @PostMapping(ID_PATH_VARIABLE)
     ResponseEntity<CourierResponse> delete(@PathVariable("id") Long id); //TODO выяснить, что должен возвращать метод
 
-    @GetMapping(Urls.Courier.Id.Salary.FULL) //TODO сделать правильно
+    @GetMapping(Urls.Courier.Id.Salary.FULL)
+        //TODO сделать правильно
     ResponseEntity<SalaryResponse> getMonthly(@PathVariable("id") Long id); //TODO пока за текущий месяц
 }
