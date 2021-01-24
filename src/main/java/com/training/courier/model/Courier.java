@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -32,16 +33,28 @@ public class Courier {
     private String firstName;
 
     /**
+     * Middle name
+     */
+    @Column(name = "middle_name", nullable = false)
+    private String middleName;
+
+    /**
      * Last name
      */
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
     /**
-     * Age
+     * Date of birth
      */
-    @Column(name = "age", nullable = false)
-    private Integer age;
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
+
+    /**
+     * Phone number
+     */
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
     /**
      * Working city

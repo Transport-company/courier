@@ -23,7 +23,7 @@ public interface CourierController {
     ResponseEntity<CouriersPageResponse> getAll(Pageable pageable);
 
     @PostMapping
-    ResponseEntity<CourierResponse> save(@RequestBody SaveCourierRequest saveCourierRequest);
+    ResponseEntity<CourierResponse> create(@RequestBody SaveCourierRequest saveCourierRequest);
 
     @PutMapping(ID_PATH_VARIABLE)
     ResponseEntity<CourierResponse> update(@PathVariable("id") Long id,

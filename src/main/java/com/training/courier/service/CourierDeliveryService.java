@@ -30,10 +30,10 @@ public interface CourierDeliveryService {
     List<CourierDelivery> getAll();
 
     /**
-     * Finds all pending paged{@link List<CourierDelivery> courier deliveries} in core
+     * Finds all pending {@link List<CourierDelivery> courier deliveries} in core
      * microservice repository through {@link CoreClient core client}. Then saves all
      * nonexistent deliveries in courier microservice repository.
-     * If core microservice is unavailable, finds all
+     * If core microservice is unavailable, finds all pending
      * {@link List<CourierDelivery> courier deliveries} in courier microservice repository.
      *
      * @return {@link List<CourierDelivery> courier deliveries}

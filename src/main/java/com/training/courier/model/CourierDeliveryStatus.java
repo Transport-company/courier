@@ -28,5 +28,10 @@ public enum CourierDeliveryStatus {
     /**
      * In case of emergency situation
      */
-    LOST
+    LOST,
+
+    /**
+     * Delivery job completed, status synchronized with core
+     */
+    CLOSED
 }
