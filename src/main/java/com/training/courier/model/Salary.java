@@ -33,10 +33,10 @@ public class Salary {
     private Courier courier;
 
     /**
-     * Date
+     * Date of closing the delivery and calculating payment for courier
      */
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
+    @Column(name = "calculating_date", nullable = false)
+    private LocalDate calculatingDate;
 
     /**
      * Base rate per one delivery
