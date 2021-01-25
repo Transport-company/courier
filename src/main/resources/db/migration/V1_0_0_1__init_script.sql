@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS client (
     middle_name              varchar(32)         NOT NULL,
     last_name                varchar(32)         NOT NULL,
     birthday                 date                NOT NULL,
-    phone                    varchar(11)         NOT NULL UNIQUE,
+    phone_number             varchar(11)         NOT NULL UNIQUE,
     email                    varchar(32)         NOT NULL UNIQUE,
     created                  timestamp           NOT NULL,
     updated                  timestamp           NOT NULL);
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS courier (
     middle_name              varchar(32)         NOT NULL,
     last_name                varchar(32)         NOT NULL,
     birthday                 date                NOT NULL,
-    phone                    varchar(11)         NOT NULL UNIQUE,
+    phone_number             varchar(11)         NOT NULL UNIQUE,
     city                     varchar(128)        NOT NULL,
     created                  timestamp           NOT NULL,
     updated                  timestamp           NOT NULL);
