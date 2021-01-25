@@ -47,14 +47,14 @@ public class Courier {
     /**
      * Date of birth
      */
-    @Column(name = "birthday", nullable = false)
-    private LocalDate birthday;
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
 
     /**
      * Phone number
      */
-    @Column(name = "phone", nullable = false)
-    private String phone;
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
 
     /**
      * Working city
