@@ -26,7 +26,7 @@ public class CourierDelivery {
     /**
      * Cargo information
      */
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cargo_id", referencedColumnName = "id", nullable = false)
     private Cargo cargo;
 
