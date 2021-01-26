@@ -21,6 +21,11 @@ public enum CourierDeliveryStatus {
     DELIVERED,
 
     /**
+     * Delivery job completed, status synchronized with core
+     */
+    CLOSED,
+
+    /**
      * Unsuccessful attempt of delivery, returning to warehouse
      */
     ON_RETURN,
@@ -28,10 +33,5 @@ public enum CourierDeliveryStatus {
     /**
      * In case of emergency situation
      */
-    LOST,
-
-    /**
-     * Delivery job completed, status synchronized with core
-     */
-    CLOSED
+    LOST
 }

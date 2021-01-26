@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @FeignClient(name = "CoreClient",
-        value = "core",
+//        value = "core", //для балансера
         url = "https://core_url",
 //        configuration = FeignClientsConfiguration.class,
         fallback = CoreClientFallback.class)
@@ -26,3 +27,4 @@ public interface CoreClient {
     @RequestMapping(method = RequestMethod.PUT, value = ID_PATH_VARIABLE, consumes = "application/json")
     DeliveryResponse updateDelivery(@PathVariable("id") Long id, UpdateDeliveryRequest updateDeliveryRequest);
 }
+

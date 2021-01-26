@@ -40,21 +40,21 @@ public class CourierDelivery {
     /**
      * Recipient client information
      */
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     private Client client;
 
     /**
      * Sending address (for returns)
      */
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sending_address_id", referencedColumnName = "id", nullable = false)
     private Address sendingAddress;
 
     /**
      * Shipping address
      */
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipping_address_id", referencedColumnName = "id", nullable = false)
     private Address shippingAddress;
 

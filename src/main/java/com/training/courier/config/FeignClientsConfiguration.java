@@ -7,9 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeignClientsConfiguration { //TODO где будет конфигурация, здесь или в .yml?
 
-    @Bean
-    public Logger.Level feignLoggerLevel() {
-        return Logger.Level.FULL;
-    }
+//    @Bean
+//    public Logger.Level feignLoggerLevel() {
+//        return Logger.Level.FULL;
+//    }
 
 }

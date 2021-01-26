@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS courier_delivery (
 CREATE TABLE IF NOT EXISTS salary (
     id                       bigserial           PRIMARY KEY,
     courier_id               int8                NOT NULL,
-    date                     date                NOT NULL,
+    calculating_date         date                NOT NULL,
     base_rate                numeric(19, 2)      NOT NULL,
     weight_factor            numeric(5, 2)       NOT NULL,
     volume_factor            numeric(5, 2)       NOT NULL,

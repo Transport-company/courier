@@ -2,7 +2,9 @@ package com.training.courier.service;
 
 import com.training.courier.client.CoreClient;
 import com.training.courier.model.CourierDelivery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
  */
 public interface CourierDeliveryService {
 
+    @Autowired
+    CoreClient
     /**
      * Finds single {@link CourierDelivery courier delivery} in courier
      * microservice repository by unique identifier.
@@ -38,8 +42,8 @@ public interface CourierDeliveryService {
      *
      * @return {@link List<CourierDelivery> courier deliveries}
      */
+    @Scheduled
     List<CourierDelivery> getPending();
-
 
     /**
      * Updates {@link CourierDelivery courier delivery} in core microservice repository
