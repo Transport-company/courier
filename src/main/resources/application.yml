@@ -27,4 +27,4 @@ feign:
         readTimeout: 3000
         loggerLevel: full
   hystrix:
-    enabled=true:
+    enabled: true

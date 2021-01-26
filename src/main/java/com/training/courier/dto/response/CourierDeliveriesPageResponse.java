@@ -8,12 +8,12 @@ import java.util.List;
  * Paged response for courier request
  */
 @Data
-public class CouriersPageResponse {
+public class CourierDeliveriesPageResponse {
 
     /**
      * List of couriers
      */
-    private List<CourierResponse> content;
+    private List<CourierDeliveryResponse> content;
 
     /**
      * Page size
