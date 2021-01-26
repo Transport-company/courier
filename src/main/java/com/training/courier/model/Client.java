@@ -47,8 +47,8 @@ public class Client {
     /**
      * Date of birth
      */
-    @Column(name = "birth_date", nullable = false)
-    private LocalDate birthDate;
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
 
     /**
      * Phone number
