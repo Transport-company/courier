@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.*;
 public interface CourierDeliveryController {
 
     String ID_PATH_VARIABLE = "/{id}";
+    String PENDING = "/pending";
 
     @GetMapping(ID_PATH_VARIABLE)
     ResponseEntity<CourierDeliveryResponse> getById(@PathVariable("id") Long id);
 
-    @GetMapping("/all")
+    @GetMapping
     ResponseEntity<CourierDeliveriesPageResponse> getAll(Pageable pageable);
 
-    @GetMapping("/pending")
+    @GetMapping(PENDING)
     ResponseEntity<CourierDeliveriesPageResponse> getPendingDeliveries(Pageable pageable);
 
     @PutMapping(ID_PATH_VARIABLE)

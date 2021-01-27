@@ -6,7 +6,7 @@ import com.training.courier.dto.response.CourierDeliveryResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-class CoreClientFallback implements CoreClient {
+public class CoreClientFallback implements CoreClient {
 
     @Override
     public List<CourierDeliveryResponse> getPendingCourierDeliveries() {

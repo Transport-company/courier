@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * Paged response for courier request
+ * Paged response object for courier request
  */
 @Data
 public class CourierDeliveriesPageResponse {

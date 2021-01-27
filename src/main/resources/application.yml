@@ -28,3 +28,5 @@ feign:
         loggerLevel: full
   hystrix:
     enabled: true
+
+coreUrl: https://core_url

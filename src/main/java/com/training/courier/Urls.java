@@ -6,7 +6,7 @@ public interface Urls {
     String ID_PATH_VARIABLE = "{id}";
 
     interface CourierDeliveries {
-        String PART = "courier_deliveries";
+        String PART = "deliveries";
         String FULL = ROOT + "/" + PART;
     }
 
