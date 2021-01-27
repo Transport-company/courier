@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    initialization-mode: always
+    platform: postgresql
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/courier
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+    swagger-ui:
+      path: courier/doc/swagger-ui.html
+
+server:
+    servlet:
+      context-path: /api/v1/courier
