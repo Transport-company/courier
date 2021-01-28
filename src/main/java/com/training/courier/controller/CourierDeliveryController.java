@@ -1,35 +1,32 @@
 package com.training.courier.controller;
 
 import com.training.courier.Urls;
-import com.training.courier.dto.request.AssignDeliveryRequest;
 import com.training.courier.dto.request.UpdateDeliveryRequest;
 import com.training.courier.dto.response.CourierDeliveriesPageResponse;
 import com.training.courier.dto.response.CourierDeliveryResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping(Urls.CourierDeliveries.FULL)
+@Tag(name = "Courier deliveries", description = "Courier deliveries related interaction endpoints")
 public interface CourierDeliveryController {
 
-    String ID_PATH_VARIABLE = "/{id}";
-    String PENDING = "/pending";
-
-    @GetMapping(ID_PATH_VARIABLE)
+    @Operation(summary = "Get information about courier delivery")
+    @GetMapping(Urls.CourierDeliveries.Id.FULL)
     ResponseEntity<CourierDeliveryResponse> getById(@PathVariable("id") Long id);
 
-    @GetMapping
+    @Operation(summary = "Get paged information about all courier deliveries")
+    @GetMapping(Urls.CourierDeliveries.FULL)
     ResponseEntity<CourierDeliveriesPageResponse> getAll(Pageable pageable);
 
-    @GetMapping(PENDING)
+    @Operation(summary = "Get paged information about pending courier deliveries")
+    @GetMapping(Urls.CourierDeliveries.Pending.FULL)
     ResponseEntity<CourierDeliveriesPageResponse> getPendingDeliveries(Pageable pageable);
 
-    @PutMapping(ID_PATH_VARIABLE)
-    ResponseEntity<CourierDeliveryResponse> assignDelivery(@PathVariable("id") Long id,
-                                                           @RequestBody AssignDeliveryRequest assignDeliveryRequest);
-
-    @PutMapping(ID_PATH_VARIABLE)
+    @Operation(summary = "Edit existing courier delivery information")
+    @PutMapping(Urls.CourierDeliveries.Id.FULL)
     ResponseEntity<CourierDeliveryResponse> updateDelivery(@PathVariable("id") Long id,
                                                            @RequestBody UpdateDeliveryRequest updateDeliveryRequest);
 }

@@ -12,8 +12,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 springdoc:
-    swagger-ui:
-      path: courier/doc/swagger-ui.html
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /doc/swagger-ui.html
+    operationsSorter: method
 
 server:
     servlet:
@@ -28,5 +31,6 @@ feign:
         loggerLevel: full
   hystrix:
     enabled: true
+#    hystrixStreamEndpoint: /actuator/hystrix.stream
 
 coreUrl: https://core_url
