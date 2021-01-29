@@ -1,6 +1,6 @@
 package com.training.courier.client;
 
-import com.training.courier.dto.request.UpdateDeliveryRequest;
+import com.training.courier.dto.request.UpdateCourierDeliveryRequest;
 import com.training.courier.dto.response.CourierDeliveryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,5 +23,5 @@ public interface CoreClient {
 
     @PutMapping(ID_PATH_VARIABLE)
     CourierDeliveryResponse updateDelivery(@PathVariable("id") Long id,
-                                           @RequestBody UpdateDeliveryRequest updateDeliveryRequest);
+                                           @RequestBody UpdateCourierDeliveryRequest updateCourierDeliveryRequest);
 }

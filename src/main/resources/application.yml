@@ -31,6 +31,5 @@ feign:
         loggerLevel: full
   hystrix:
     enabled: true
-#    hystrixStreamEndpoint: /actuator/hystrix.stream
 
 coreUrl: https://core_url

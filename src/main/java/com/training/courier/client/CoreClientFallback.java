@@ -1,6 +1,6 @@
 package com.training.courier.client;
 
-import com.training.courier.dto.request.UpdateDeliveryRequest;
+import com.training.courier.dto.request.UpdateCourierDeliveryRequest;
 import com.training.courier.dto.response.CourierDeliveryResponse;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class CoreClientFallback implements CoreClient {
     }
 
     @Override
-    public CourierDeliveryResponse updateDelivery(Long id, UpdateDeliveryRequest updateDeliveryRequest) {
+    public CourierDeliveryResponse updateDelivery(Long id, UpdateCourierDeliveryRequest updateCourierDeliveryRequest) {
         return null;
     }
 }
