@@ -1,8 +1,7 @@
 package com.training.courier.service;
 
-import com.training.courier.client.CoreClient;
+import com.training.courier.feignClient.CoreFeignClient;
 import com.training.courier.model.CourierDelivery;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,28 +31,57 @@ public interface CourierDeliveryService {
     List<CourierDelivery> getAll();
 
     /**
-     * Finds all pending {@link List<CourierDelivery> courier deliveries} in core
-     * microservice repository through {@link CoreClient core client}. Then saves all
-     * nonexistent deliveries in courier microservice repository.
-     * If core microservice is unavailable, finds all pending
-     * {@link List<CourierDelivery> courier deliveries} in courier microservice repository.
+     * Gets pending {@link List<CourierDelivery> courier deliveries} from core
+     * microservice repository through {@link CoreFeignClient core client}.
      *
      * @return {@link List<CourierDelivery> courier deliveries}
      */
     @Scheduled
-    List<CourierDelivery> getPending();
+    List<CourierDelivery> getPendingFromCore();
 
     /**
-     * Updates {@link CourierDelivery courier delivery} in core microservice repository
-     * through {@link CoreClient core client}. If update in core is successful, updates
-     * {@link CourierDelivery courier delivery} in courier microservice repository with
-     * is_synchronized = true flag. //TODO добавить boolean поле
-     * If core microservice  is unavailable, updates {@link CourierDelivery courier delivery}
-     * in courier microservice repository with is_synchronized = false flag.
+     * Saves {@link CourierDelivery courier delivery} in core microservice repository
      *
      * @param courierDelivery {@link CourierDelivery courier delivery}
      * @return {@link CourierDelivery courier delivery}
      */
     @Transactional
     CourierDelivery save(@NonNull CourierDelivery courierDelivery);
+
+    /**
+     * Updates {@link CourierDelivery courier delivery} in core microservice repository
+     *
+     * @param courierDelivery {@link CourierDelivery courier delivery}
+     * @return {@link CourierDelivery courier delivery}
+     */
+    @Transactional
+    CourierDelivery save(@NonNull CourierDelivery courierDelivery);
+
+
+//    /**
+//     * Finds all pending {@link List<CourierDelivery> courier deliveries} in core
+//     * microservice repository through {@link CoreFeignClient core client}. Then saves all
+//     * nonexistent deliveries in courier microservice repository.
+//     * If core microservice is unavailable, finds all pending
+//     * {@link List<CourierDelivery> courier deliveries} in courier microservice repository.
+//     *
+//     * @return {@link List<CourierDelivery> courier deliveries}
+//     */
+//    @Scheduled
+//    List<CourierDelivery> getPending();
+//
+//    /**
+//     * Updates {@link CourierDelivery courier delivery} in core microservice repository
+//     * through {@link CoreFeignClient core client}. If update in core is successful, updates
+//     * {@link CourierDelivery courier delivery} in courier microservice repository with
+//     * is_synchronized = true flag. //TODO добавить boolean поле
+//     * If core microservice  is unavailable, updates {@link CourierDelivery courier delivery}
+//     * in courier microservice repository with is_synchronized = false flag.
+//     *
+//     * @param courierDelivery {@link CourierDelivery courier delivery}
+//     * @return {@link CourierDelivery courier delivery}
+//     */
+//    @Transactional
+//    CourierDelivery save(@NonNull CourierDelivery courierDelivery);
+
 }
