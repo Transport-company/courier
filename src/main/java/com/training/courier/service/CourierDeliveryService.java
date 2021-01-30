@@ -1,16 +1,14 @@
 package com.training.courier.service;
 
+import com.training.courier.exception.NotFoundException;
 import com.training.courier.feignClient.CoreFeignClient;
 import com.training.courier.model.CourierDelivery;
 import com.training.courier.model.CourierDeliveryStatus;
-import org.springframework.lang.NonNull;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * service for work with {@link CourierDelivery courier delivery} entity
+ * Service for work with {@link CourierDelivery courier delivery} entity
  */
 public interface CourierDeliveryService {
 
@@ -20,8 +18,10 @@ public interface CourierDeliveryService {
      *
      * @param id unique identifier of {@link CourierDelivery courier delivery}
      * @return {@link CourierDelivery courierDelivery}
+     * @throws IllegalArgumentException in case of invalid input id provided
+     * @throws NotFoundException in case of non existing {@link CourierDelivery courier delivery} in repository
      */
-    CourierDelivery getById(@NonNull Long id);
+    CourierDelivery getById(Long id);
 
     /**
      * Finds all {@link List<CourierDelivery> courier deliveries} in courier
@@ -37,28 +37,29 @@ public interface CourierDeliveryService {
      *
      * @param status {@link CourierDeliveryStatus status} of {@link CourierDelivery courierDelivery}
      * @return {@link List<CourierDelivery> courier deliveries}
+     * @throws IllegalArgumentException in case of invalid input {@link CourierDeliveryStatus status} provided
      */
-
-    List<CourierDelivery> getBy(CourierDeliveryStatus status);
+    List<CourierDelivery> getByStatus(CourierDeliveryStatus status);
 
     /**
-     * Saves {@link CourierDelivery courier delivery} in courier microservice repository
+     * Saves new {@link CourierDelivery courier delivery} in courier microservice repository
      *
      * @param courierDelivery {@link CourierDelivery courier delivery} to be saved
      * @return {@link CourierDelivery courier delivery}
+     * @throws IllegalArgumentException in case of invalid input {@link CourierDelivery courier delivery} provided
      */
-    @Transactional
-    CourierDelivery save(@NonNull CourierDelivery courierDelivery);
+    CourierDelivery save(CourierDelivery courierDelivery);
 
     /**
      * Updates {@link CourierDelivery courier delivery} in courier microservice repository
      *
      * @param id unique identifier of {@link CourierDelivery courier delivery} to be updated
-     * @param courierDelivery {@link CourierDelivery courier delivery}
+     * @param courierDelivery {@link CourierDelivery courier delivery} to be updated
      * @return {@link CourierDelivery courier delivery}
+     * @throws IllegalArgumentException in case of invalid input id or{@link CourierDelivery courier delivery} provided
+     * @throws NotFoundException in case of non existing {@link CourierDelivery courier delivery} in repository
      */
-    @Transactional
-    CourierDelivery update(@NonNull Long id, @NonNull CourierDelivery courierDelivery);
+    CourierDelivery update(Long id, CourierDelivery courierDelivery);
 
     /**
      * Gets pending {@link List<CourierDelivery> courier deliveries} from core
@@ -66,7 +67,6 @@ public interface CourierDeliveryService {
      *
      * @return {@link List<CourierDelivery> courier deliveries}
      */
-    @Scheduled
     List<CourierDelivery> getPendingFromCore();
 
     /**
@@ -76,6 +76,16 @@ public interface CourierDeliveryService {
      * @param courierDelivery {@link CourierDelivery courier delivery} to be updated
      * @return {@link CourierDelivery courier delivery}
      */
-    @Scheduled
-    CourierDelivery updateInCore(@NonNull Long id, @NonNull CourierDelivery courierDelivery);
+    CourierDelivery updateInCore(Long id, CourierDelivery courierDelivery);
+
+    /**
+     * Gets pending {@link List<CourierDelivery> courier deliveries} from core microservice by schedule.
+     * If {@link List<CourierDelivery> courier deliveries} exist, saves them in courier
+     * microservice repository with IN_WAREHOUSE {@link CourierDeliveryStatus status}
+     *
+     * If deliveries with DELIVERED {@link CourierDeliveryStatus status} exist in courier microservice
+     * repository, updates their status in core microservice repository to DELIVERED.
+     * If operation is successful, updates their status in courier microservice repository to CLOSED.
+     */
+    void synchronizeDeliveries();
 }

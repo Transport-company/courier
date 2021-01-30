@@ -29,7 +29,7 @@ public interface Urls {
         }
 
         interface Pending {
-            String PENDING = "/pending";
+            String PENDING = "pending";
             String FULL = CourierDeliveries.FULL + "/" + PENDING;
         }
     }

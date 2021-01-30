@@ -33,3 +33,7 @@ feign:
     enabled: true
 
 coreUrl: https://core_url
+
+# <sec> <min> <hour> <day-of-month> <month> <day-of-week>
+cron:
+  expression: 0 0 9-20 * * MON-FRI #every hour from 9:00 to 20:00 from monday to friday

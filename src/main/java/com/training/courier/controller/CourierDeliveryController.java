@@ -1,7 +1,7 @@
 package com.training.courier.controller;
 
 import com.training.courier.Urls;
-import com.training.courier.dto.request.UpdateCourierDeliveryRequest;
+import com.training.courier.dto.request.CourierDeliveryUpdatingRequest;
 import com.training.courier.dto.response.CourierDeliveriesPageResponse;
 import com.training.courier.dto.response.CourierDeliveryResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,7 +75,7 @@ public interface CourierDeliveryController {
             @PathVariable("id") Long id,
             @Parameter(name = "updateCourierDelivery",
                     description = "Courier delivery data contained in update request",
-                    schema = @Schema(implementation = UpdateCourierDeliveryRequest.class),
+                    schema = @Schema(implementation = CourierDeliveryUpdatingRequest.class),
                     required = true)
-            @RequestBody UpdateCourierDeliveryRequest updateCourierDeliveryRequest);
+            @RequestBody CourierDeliveryUpdatingRequest courierDeliveryUpdatingRequest);
 }
