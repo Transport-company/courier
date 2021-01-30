@@ -17,11 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Couriers", description = "Courier related interaction endpoints")
-@RequestMapping(Urls.Couriers.FULL)
 public interface CourierController {
-
-    String ID_PATH_VARIABLE = "/{id}";
-    String SALARY = ID_PATH_VARIABLE + "/salary";
 
     @Operation(summary = "Get information about courier", responses =  {
             @ApiResponse(responseCode = "200", description = "Success", content = @Content(
@@ -30,7 +26,7 @@ public interface CourierController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Courier not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @GetMapping(ID_PATH_VARIABLE)
+    @GetMapping(Urls.Couriers.Id.FULL)
     ResponseEntity<CourierResponse> getById(@Parameter(name = "id",
                     description = "Courier unique identifier",
                     required = true)
@@ -43,7 +39,7 @@ public interface CourierController {
             @ApiResponse(responseCode = "204", description = "No content", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @GetMapping
+    @GetMapping(Urls.Couriers.FULL)
     ResponseEntity<CouriersPageResponse> getAll(@Parameter(name = "pageable",
                     description = "Response page parameters",
                     schema = @Schema(implementation = Pageable.class),
@@ -56,7 +52,7 @@ public interface CourierController {
                     schema = @Schema(implementation =  CourierResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @PostMapping
+    @PostMapping(Urls.Couriers.FULL)
     ResponseEntity<CourierResponse> create(@Parameter(name = "createCourierRequest",
                     description = "Courier data contained in create request",
                     schema = @Schema(implementation = CreateCourierRequest.class),
@@ -70,7 +66,7 @@ public interface CourierController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Courier not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @PutMapping(ID_PATH_VARIABLE)
+    @PutMapping(Urls.Couriers.Id.FULL)
     ResponseEntity<CourierResponse> update(@Parameter(name = "id",
                     description = "Courier unique identifier",
                     required = true)
@@ -86,7 +82,7 @@ public interface CourierController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Courier not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @DeleteMapping(ID_PATH_VARIABLE)
+    @DeleteMapping(Urls.Couriers.Id.FULL)
     ResponseEntity<String> delete(@Parameter(name = "id",
                     description = "Courier unique identifier",
                     required = true)
@@ -99,7 +95,7 @@ public interface CourierController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Courier not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @GetMapping(SALARY)
+    @GetMapping(Urls.Couriers.Id.Salary.FULL)
     ResponseEntity<SalaryResponse> getMonthly(@Parameter(name = "id",
                     description = "Courier unique identifier",
                     required = true)

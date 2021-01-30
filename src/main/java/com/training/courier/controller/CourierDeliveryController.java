@@ -12,14 +12,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "Courier deliveries", description = "Courier deliveries related interaction endpoints")
-@RequestMapping(Urls.CourierDeliveries.FULL)
 public interface CourierDeliveryController {
-
-    String ID_PATH_VARIABLE = "/{id}";
-    String PENDING = "/pending";
 
     @Operation(summary = "Get information about courier delivery", responses =  {
             @ApiResponse(responseCode = "200", description = "Success", content = @Content(
@@ -28,7 +27,7 @@ public interface CourierDeliveryController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Courier delivery not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @GetMapping(ID_PATH_VARIABLE)
+    @GetMapping(Urls.CourierDeliveries.Id.FULL)
     ResponseEntity<CourierDeliveryResponse> getById(@Parameter(name = "id",
                     description = "Courier delivery unique identifier",
                     required = true)
@@ -41,7 +40,7 @@ public interface CourierDeliveryController {
             @ApiResponse(responseCode = "204", description = "No content", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @GetMapping
+    @GetMapping(Urls.CourierDeliveries.FULL)
     ResponseEntity<CourierDeliveriesPageResponse> getAll(@Parameter(name = "pageable",
                     description = "Response page parameters",
                     schema = @Schema(implementation = Pageable.class),
@@ -55,7 +54,7 @@ public interface CourierDeliveryController {
             @ApiResponse(responseCode = "204", description = "No content", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @GetMapping(PENDING)
+    @GetMapping(Urls.CourierDeliveries.Pending.FULL)
     ResponseEntity<CourierDeliveriesPageResponse> getPendingDeliveries(@Parameter(name = "pageable",
                     description = "Response page parameters",
                     schema = @Schema(implementation = Pageable.class),
@@ -69,7 +68,7 @@ public interface CourierDeliveryController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Courier delivery not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
-    @PutMapping(ID_PATH_VARIABLE)
+    @PutMapping(Urls.CourierDeliveries.Id.FULL)
     ResponseEntity<CourierDeliveryResponse> updateDelivery(@Parameter(name = "id",
                     description = "Courier unique identifier",
                     required = true)
