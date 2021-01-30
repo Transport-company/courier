@@ -1,8 +1,8 @@
 package com.training.courier.controller.impl;
 
 import com.training.courier.controller.CourierController;
-import com.training.courier.dto.request.CreateCourierRequest;
-import com.training.courier.dto.request.UpdateCourierRequest;
+import com.training.courier.dto.request.CourierCreationRequest;
+import com.training.courier.dto.request.CourierUpdatingRequest;
 import com.training.courier.dto.response.CourierResponse;
 import com.training.courier.dto.response.CouriersPageResponse;
 import com.training.courier.dto.response.SalaryResponse;
@@ -24,12 +24,12 @@ public class CourierControllerImpl implements CourierController {
     }
 
     @Override
-    public ResponseEntity<CourierResponse> create(CreateCourierRequest createCourierRequest) {
+    public ResponseEntity<CourierResponse> create(CourierCreationRequest courierCreationRequest) {
         return null;
     }
 
     @Override
-    public ResponseEntity<CourierResponse> update(Long id, UpdateCourierRequest updateCourierRequest) {
+    public ResponseEntity<CourierResponse> update(Long id, CourierUpdatingRequest courierUpdatingRequest) {
         return null;
     }
 

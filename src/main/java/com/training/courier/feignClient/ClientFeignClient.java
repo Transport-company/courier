@@ -1,6 +1,6 @@
 package com.training.courier.feignClient;
 
-import com.training.courier.dto.request.client.UpdateDeliveryClientRequest;
+import com.training.courier.dto.request.client.DeliveryInClientUpdatingRequest;
 import com.training.courier.dto.response.CourierDeliveryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,5 +16,5 @@ public interface ClientFeignClient {
 
     @PutMapping(ID_PATH_VARIABLE)
     CourierDeliveryResponse updateDelivery(@PathVariable("id") Long id,
-            @RequestBody UpdateDeliveryClientRequest updateDeliveryClientRequest);
+            @RequestBody DeliveryInClientUpdatingRequest deliveryInClientUpdatingRequest);
 }

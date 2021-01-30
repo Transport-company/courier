@@ -8,5 +8,5 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema(description = "Object used to transfer update data from courier microservice" +
         " request to core microservice delivery controller")
-public class UpdateDeliveryCoreRequest {
+public class DeliveryInCoreUpdatingRequest {
 }

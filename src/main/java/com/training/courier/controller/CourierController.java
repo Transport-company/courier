@@ -1,8 +1,8 @@
 package com.training.courier.controller;
 
 import com.training.courier.Urls;
-import com.training.courier.dto.request.CreateCourierRequest;
-import com.training.courier.dto.request.UpdateCourierRequest;
+import com.training.courier.dto.request.CourierCreationRequest;
+import com.training.courier.dto.request.CourierUpdatingRequest;
 import com.training.courier.dto.response.CourierResponse;
 import com.training.courier.dto.response.CouriersPageResponse;
 import com.training.courier.dto.response.SalaryResponse;
@@ -55,9 +55,9 @@ public interface CourierController {
     @PostMapping(Urls.Couriers.FULL)
     ResponseEntity<CourierResponse> create(@Parameter(name = "createCourierRequest",
                     description = "Courier data contained in create request",
-                    schema = @Schema(implementation = CreateCourierRequest.class),
+                    schema = @Schema(implementation = CourierCreationRequest.class),
                     required = true)
-            @RequestBody CreateCourierRequest createCourierRequest);
+            @RequestBody CourierCreationRequest courierCreationRequest);
 
     @Operation(summary = "Edit existing courier information", responses = {
             @ApiResponse(responseCode = "200", description = "Success", content = @Content(
@@ -73,9 +73,9 @@ public interface CourierController {
             @PathVariable("id") Long id,
             @Parameter(name = "updateCourierRequest",
                     description = "Courier data contained in update request",
-                    schema = @Schema(implementation = UpdateCourierRequest.class),
+                    schema = @Schema(implementation = CourierUpdatingRequest.class),
                     required = true)
-            @RequestBody UpdateCourierRequest updateCourierRequest);
+            @RequestBody CourierUpdatingRequest courierUpdatingRequest);
 
     @Operation(summary = "Delete existing courier", responses = {
             @ApiResponse(responseCode = "200", description = "Success", content = @Content),
