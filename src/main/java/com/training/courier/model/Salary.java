@@ -35,6 +35,7 @@ public class Salary {
     /**
      * Date of closing the delivery and calculating payment for courier
      */
+    @Temporal(TemporalType.DATE)
     @Column(name = "calculating_date", nullable = false)
     private LocalDate calculatingDate;
 
