@@ -1,11 +1,19 @@
 package com.training.courier.model;
 
+import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
 
 
 /**
@@ -23,12 +31,12 @@ public class CourierDelivery {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    /**
-     * Cargo information
-     */
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cargo_id", referencedColumnName = "id", nullable = false)
-    private Cargo cargo;
+//    /**
+//     * Cargo information
+//     */
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "cargo_id", referencedColumnName = "id", nullable = false)
+//    private Cargo cargo;
 
     /**
      * Courier information
@@ -40,21 +48,21 @@ public class CourierDelivery {
     /**
      * Recipient client information
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     private Client client;
 
-    /**
-     * Sending address (for returns)
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sending_address_id", referencedColumnName = "id", nullable = false)
-    private Address sendingAddress;
+//    /**
+//     * Sending address (for returns)
+//     */
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "sending_address_id", referencedColumnName = "id", nullable = false)
+//    private Address sendingAddress;
 
     /**
      * Shipping address
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "shipping_address_id", referencedColumnName = "id", nullable = false)
     private Address shippingAddress;
 

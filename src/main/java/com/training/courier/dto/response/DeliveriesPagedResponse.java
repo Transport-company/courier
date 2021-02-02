@@ -1,22 +1,21 @@
 package com.training.courier.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.List;
 import lombok.Data;
 
-import java.util.List;
-
 /**
- * Paged response for courier request
+ * Paged response object for courier deliveries request
  */
-@Schema(description = "Paged response for courier request")
+@Schema(description = "Paged response object for courier deliveries request")
 @Data
-public class CouriersPageResponse {
+public class CourierDeliveriesPageResponse {
 
     /**
-     * List of couriers
+     * List of courier deliveries
      */
-    @Schema(description = "List of couriers")
-    private List<CourierResponse> content;
+    @Schema(description = "List of courier deliveries")
+    private List<CourierDeliveryResponse> content;
 
     /**
      * Page size
