@@ -3,7 +3,7 @@ package com.training.courier.model;
 /**
  * Delivery status
  */
-public enum CourierDeliveryStatus {
+public enum DeliveryStatus {
 
     /**
      * In warehouse

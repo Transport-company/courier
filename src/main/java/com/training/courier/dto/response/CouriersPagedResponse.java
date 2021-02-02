@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Schema(description = "Paged response for courier request")
 @Data
-public class CouriersPageResponse {
+public class CouriersPagedResponse {
 
     /**
      * List of couriers

@@ -32,7 +32,13 @@ feign:
   hystrix:
     enabled: true
 
-coreUrl: https://core_url
+core:
+  deliveriesApi:
+    url: https://core_url/deliveries
+
+client:
+  deliveriesApi:
+    url: https://client_url/deliveries
 
 # <sec> <min> <hour> <day-of-month> <month> <day-of-week>
 cron:

@@ -1,8 +1,7 @@
 package com.training.courier.service;
 
-import com.training.courier.exception.NotFoundException;
+import com.training.courier.exception.CourierNotFoundException;
 import com.training.courier.model.Courier;
-
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public interface CourierService {
      * @param id unique identifier of {@link Courier courier}
      * @return {@link Courier courier}
      * @throws IllegalArgumentException in case of invalid id provided
-     * @throws NotFoundException in case of non existing {@link Courier courier} in repository
+     * @throws CourierNotFoundException in case of non existing {@link Courier courier} in repository
      */
     Courier getById(Long id);
 
@@ -28,7 +27,7 @@ public interface CourierService {
     List<Courier> getAll();
 
     /**
-     * Saves new {@link Courier courier} in courier microservice repository
+     * Saves new {@link Courier courier} in courier microservice repository.
      *
      * @param courier {@link Courier courier} to be saved
      * @return {@link Courier courier}
@@ -37,23 +36,23 @@ public interface CourierService {
     Courier save(Courier courier);
 
     /**
-     * Updates {@link Courier courier} in courier microservice repository
+     * Updates {@link Courier courier} in courier microservice repository.
      *
      * @param id unique identifier of {@link Courier courier} to be updated
      * @param courier {@link Courier courier} to be updated
      * @return {@link Courier courier}
      * @throws IllegalArgumentException in case of invalid input id or{@link Courier courier} provided
-     * @throws NotFoundException in case of non existing {@link Courier courier} in repository
+     * @throws CourierNotFoundException in case of non existing {@link Courier courier} in repository
      */
     Courier update(Long id, Courier courier);
 
 
     /**
-     * Deletes {@link Courier courier} from courier microservice repository
+     * Deletes {@link Courier courier} from courier microservice repository.
      *
      * @param id unique identifier of {@link Courier courier}
      * @throws IllegalArgumentException in case of invalid input id or{@link Courier courier} provided
-     * @throws NotFoundException in case of non existing {@link Courier courier} in repository
+     * @throws CourierNotFoundException in case of non existing {@link Courier courier} in repository
      */
     void delete(Long id);
 }

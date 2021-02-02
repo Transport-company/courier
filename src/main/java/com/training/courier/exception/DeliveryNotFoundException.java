@@ -1,7 +1,7 @@
 package com.training.courier.exception;
 
-public class CourierDeliveryNotFoundException extends RuntimeException{
-    public CourierDeliveryNotFoundException(Long id) {
-        super("Courier delivery with " + id + " not found");
+public class DeliveryNotFoundException extends RuntimeException{
+    public DeliveryNotFoundException(Long id) {
+        super("Delivery with " + id + " not found");
     }
 }

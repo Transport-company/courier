@@ -4,7 +4,7 @@ import com.training.courier.controller.CourierController;
 import com.training.courier.dto.request.CourierCreationRequest;
 import com.training.courier.dto.request.CourierUpdatingRequest;
 import com.training.courier.dto.response.CourierResponse;
-import com.training.courier.dto.response.CouriersPageResponse;
+import com.training.courier.dto.response.CouriersPagedResponse;
 import com.training.courier.dto.response.SalaryResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class CourierControllerImpl implements CourierController {
     }
 
     @Override
-    public ResponseEntity<CouriersPageResponse> getAll(Pageable pageable) {
+    public ResponseEntity<CouriersPagedResponse> getAll(Pageable pageable) {
         return null;
     }
 

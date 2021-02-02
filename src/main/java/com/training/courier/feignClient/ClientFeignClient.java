@@ -1,20 +1,20 @@
 package com.training.courier.feignClient;
 
 import com.training.courier.dto.request.client.DeliveryInClientUpdatingRequest;
-import com.training.courier.dto.response.CourierDeliveryResponse;
+import com.training.courier.dto.response.DeliveryResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "ClientFeignClient",
-        url = "${clientUrl}",
+        url = "${client.deliveriesApi.Url}",
         fallback = ClientFeignClientFallback.class)
 public interface ClientFeignClient {
 
     String ID_PATH_VARIABLE = "/{id}";
 
-    @PutMapping(ID_PATH_VARIABLE)
-    CourierDeliveryResponse updateDelivery(@PathVariable("id") Long id,
-            @RequestBody DeliveryInClientUpdatingRequest deliveryInClientUpdatingRequest);
+    @PatchMapping(ID_PATH_VARIABLE)
+    DeliveryResponse updateDelivery(@PathVariable("id") Long id,
+                                    @RequestBody DeliveryInClientUpdatingRequest deliveryInClientUpdatingRequest);
 }

@@ -1,33 +1,33 @@
 package com.training.courier.controller.impl;
 
-import com.training.courier.controller.CourierDeliveryController;
-import com.training.courier.dto.request.CourierDeliveryUpdatingRequest;
-import com.training.courier.dto.response.CourierDeliveriesPageResponse;
-import com.training.courier.dto.response.CourierDeliveryResponse;
+import com.training.courier.controller.DeliveryController;
+import com.training.courier.dto.request.DeliveryUpdatingRequest;
+import com.training.courier.dto.response.DeliveriesPagedResponse;
+import com.training.courier.dto.response.DeliveryResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CourierDeliveryControllerImpl implements CourierDeliveryController {
+public class DeliveryControllerImpl implements DeliveryController {
 
     @Override
-    public ResponseEntity<CourierDeliveryResponse> getById(Long id) {
+    public ResponseEntity<DeliveryResponse> getById(Long id) {
         return null;
     }
 
     @Override
-    public ResponseEntity<CourierDeliveriesPageResponse> getAll(Pageable pageable) {
+    public ResponseEntity<DeliveriesPagedResponse> getAll(Pageable pageable) {
         return null;
     }
 
     @Override
-    public ResponseEntity<CourierDeliveriesPageResponse> getPendingDeliveries(Pageable pageable) {
+    public ResponseEntity<DeliveriesPagedResponse> getPendingDeliveries(Pageable pageable) {
         return null;
     }
 
     @Override
-    public ResponseEntity<CourierDeliveryResponse> updateDelivery(Long id, CourierDeliveryUpdatingRequest courierDeliveryUpdatingRequest) {
+    public ResponseEntity<DeliveryResponse> updateDelivery(Long id, DeliveryUpdatingRequest deliveryUpdatingRequest) {
         return null;
     }
 }

@@ -1,7 +1,7 @@
 package com.training.courier.exception;
 
-public class NotFoundException extends RuntimeException{
-    public NotFoundException(Long id) {
-        super("Entity with " + id + " not found");
+public class CourierNotFoundException extends RuntimeException{
+    public CourierNotFoundException(Long id) {
+        super("Courier with " + id + " not found");
     }
 }

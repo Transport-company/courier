@@ -5,17 +5,17 @@ import java.util.List;
 import lombok.Data;
 
 /**
- * Paged response object for courier deliveries request
+ * Paged response object for deliveries request
  */
-@Schema(description = "Paged response object for courier deliveries request")
+@Schema(description = "Paged response object for deliveries request")
 @Data
-public class CourierDeliveriesPageResponse {
+public class DeliveriesPagedResponse {
 
     /**
-     * List of courier deliveries
+     * List of deliveries
      */
-    @Schema(description = "List of courier deliveries")
-    private List<CourierDeliveryResponse> content;
+    @Schema(description = "List of deliveries")
+    private List<DeliveryResponse> content;
 
     /**
      * Page size

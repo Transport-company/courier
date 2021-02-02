@@ -22,7 +22,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "courier_delivery")
 @Data
-public class CourierDelivery {
+public class Delivery {
 
     /**
      * Unique identifier
@@ -30,13 +30,6 @@ public class CourierDelivery {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-
-//    /**
-//     * Cargo information
-//     */
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "cargo_id", referencedColumnName = "id", nullable = false)
-//    private Cargo cargo;
 
     /**
      * Courier information
@@ -52,19 +45,12 @@ public class CourierDelivery {
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     private Client client;
 
-//    /**
-//     * Sending address (for returns)
-//     */
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "sending_address_id", referencedColumnName = "id", nullable = false)
-//    private Address sendingAddress;
-
     /**
      * Shipping address
      */
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "shipping_address_id", referencedColumnName = "id", nullable = false)
-    private Address shippingAddress;
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
+    private Address address;
 
     /**
      * Confirmation code
@@ -77,7 +63,7 @@ public class CourierDelivery {
      */
     @Enumerated(value = EnumType.STRING)
     @Column(name = "courier_delivery_status", nullable = false)
-    private CourierDeliveryStatus courierDeliveryStatus;
+    private DeliveryStatus deliveryStatus;
 
     /**
      * Registration time
