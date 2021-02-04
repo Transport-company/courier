@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "ClientFeignClient",
-        url = "${client.deliveriesApi.Url}",
+        url = "${client.deliveriesApi.url}",
         fallback = ClientFeignClientFallback.class)
 public interface ClientFeignClient {
 

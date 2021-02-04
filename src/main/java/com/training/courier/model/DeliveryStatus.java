@@ -16,19 +16,24 @@ public enum DeliveryStatus {
     ON_DELIVERY,
 
     /**
-     * Delivery successful
+     * Returning to warehouse after unsuccessful attempt of delivery
+     */
+    RETURNING_TO_WAREHOUSE,
+
+    /**
+     * Handed over to recipient
+     */
+    HANDED_OVER,
+
+    /**
+     * Delivery successful, entry is closed
      */
     DELIVERED,
 
     /**
-     * Delivery job completed, status synchronized with core
+     * Returning to sender after unsuccessful attempts of delivery
      */
-    CLOSED,
-
-    /**
-     * Unsuccessful attempt of delivery, returning to warehouse
-     */
-    ON_RETURN,
+    RETURNED,
 
     /**
      * In case of emergency situation

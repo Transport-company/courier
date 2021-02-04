@@ -11,9 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -42,9 +41,15 @@ public class Salary {
     private Courier courier;
 
     /**
+     * Delivery information
+     */
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_id", referencedColumnName = "id", nullable = false, unique = true)
+    private Delivery delivery;
+
+    /**
      * Date of closing the delivery and calculating payment for courier
      */
-    @Temporal(TemporalType.DATE)
     @Column(name = "calculating_date", nullable = false)
     private LocalDate calculatingDate;
 

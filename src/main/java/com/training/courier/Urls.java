@@ -19,18 +19,23 @@ public interface Urls {
         }
     }
 
-    interface CourierDeliveries {
+    interface Deliveries {
         String PART = "deliveries";
         String FULL = ROOT + "/" + PART;
 
         interface Id {
             String PART = "{id}";
-            String FULL = CourierDeliveries.FULL + "/" + PART;
+            String FULL = Deliveries.FULL + "/" + PART;
+
+            interface Status {
+                String PART = "status";
+                String FULL = Deliveries.Id.FULL + "/" + PART;
+            }
         }
 
-        interface Pending {
-            String PENDING = "pending";
-            String FULL = CourierDeliveries.FULL + "/" + PENDING;
+        interface Filter {
+            String PART = "filter";
+            String FULL = Deliveries.FULL + "/" + PART;
         }
     }
 }

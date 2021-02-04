@@ -38,7 +38,9 @@ core:
 
 client:
   deliveriesApi:
-    url: https://client_url/deliveries
+    url: https://core_url/deliveries
+
+clientdeliveriesApiurl: https://client_url/deliveries
 
 # <sec> <min> <hour> <day-of-month> <month> <day-of-week>
 cron:

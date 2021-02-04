@@ -59,6 +59,18 @@ public class Delivery {
     private String code;
 
     /**
+     * Number of code verification attempts
+     */
+    @Column(name = "verify_code_attempts_number", columnDefinition = "int2 default 0")
+    private Integer verifyCodeAttemptsNumber;
+
+    /**
+     * Number of delivery attempts
+     */
+    @Column(name = "delivery_attempts_number", columnDefinition = "int2 default 0")
+    private Integer deliveryAttemptsNumber;
+
+    /**
      * Courier delivery status
      */
     @Enumerated(value = EnumType.STRING)
