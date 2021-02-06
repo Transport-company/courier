@@ -78,6 +78,12 @@ public class Delivery {
     private DeliveryStatus deliveryStatus;
 
     /**
+     * Delivery status is synchronized with core microservice
+     */
+    @Column(name = "is_synchronized", columnDefinition = "boolean default false", nullable = false)
+    private boolean isSynchronized;
+
+    /**
      * Registration time
      */
     @CreationTimestamp

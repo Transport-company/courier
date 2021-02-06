@@ -13,9 +13,11 @@ ALTER TABLE delivery
     ADD COLUMN address_id int8 NOT NULL,
     ADD COLUMN verify_code_attempts_number int2,
     ADD COLUMN delivery_attempts_number int2,
+    ADD COLUMN is_synchronized boolean NOT NULL,
     ADD FOREIGN KEY (address_id) REFERENCES address (id),
     ADD FOREIGN KEY (courier_id) REFERENCES courier (id),
-    ADD FOREIGN KEY (client_id) REFERENCES client (id);
+    ADD FOREIGN KEY (client_id) REFERENCES client (id),
+    ALTER COLUMN courier_delivery_status TYPE varchar(30);
 
 ALTER TABLE salary
     ADD COLUMN delivery_id int8 NOT NULL UNIQUE,

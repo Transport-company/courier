@@ -34,7 +34,7 @@ public class DeliveryControllerImpl implements DeliveryController {
     }
 
     @Override
-    public ResponseEntity<DeliveryResponse> verifyCodeAndUpdateDeliveryStatus(Long id, String code) {
+    public ResponseEntity<String> verifyCodeAndUpdateDeliveryStatus(Long id, String code) {
         return null;
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -81,14 +80,12 @@ public interface DeliveryController {
             @RequestBody DeliveryStatusRequest status);
 
     @Operation(summary = "Verify code and update delivery status", responses = {
-            @ApiResponse(responseCode = "200", description = "Success", content = @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = DeliveryResponse.class))),
+            @ApiResponse(responseCode = "200", description = "Success", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Delivery not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Wrong confirmation code", content = @Content)})
-    @PostMapping(Urls.Deliveries.Id.FULL)
-    ResponseEntity<DeliveryResponse> verifyCodeAndUpdateDeliveryStatus(@Parameter(name = "id",
+    @PatchMapping(Urls.Deliveries.Id.FULL)
+    ResponseEntity<String> verifyCodeAndUpdateDeliveryStatus(@Parameter(name = "id",
                     description = "Delivery unique identifier",
                     required = true)
             @PathVariable("id") Long id,
