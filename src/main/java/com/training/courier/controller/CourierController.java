@@ -4,7 +4,7 @@ import com.training.courier.Urls;
 import com.training.courier.dto.request.CourierCreationRequest;
 import com.training.courier.dto.request.CourierUpdatingRequest;
 import com.training.courier.dto.response.CourierResponse;
-import com.training.courier.dto.response.CouriersPageResponse;
+import com.training.courier.dto.response.CouriersPagedResponse;
 import com.training.courier.dto.response.SalaryResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,7 +14,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "Couriers", description = "Courier related interaction endpoints")
 public interface CourierController {
@@ -35,12 +40,12 @@ public interface CourierController {
     @Operation(summary = "Get paged information about all couriers", responses = {
             @ApiResponse(responseCode = "200", description = "Success", content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = CouriersPageResponse.class))),
+                    schema = @Schema(implementation = CouriersPagedResponse.class))),
             @ApiResponse(responseCode = "204", description = "No content", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     @GetMapping(Urls.Couriers.FULL)
-    ResponseEntity<CouriersPageResponse> getAll(@Parameter(name = "pageable",
+    ResponseEntity<CouriersPagedResponse> getAll(@Parameter(name = "pageable",
                     description = "Response page parameters",
                     schema = @Schema(implementation = Pageable.class),
                     required = true)
@@ -71,7 +76,7 @@ public interface CourierController {
                     description = "Courier unique identifier",
                     required = true)
             @PathVariable("id") Long id,
-            @Parameter(name = "updateCourierRequest",
+            @Parameter(name = "courierUpdatingRequest",
                     description = "Courier data contained in update request",
                     schema = @Schema(implementation = CourierUpdatingRequest.class),
                     required = true)

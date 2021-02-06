@@ -1,11 +1,19 @@
 package com.training.courier.model;
 
+import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
 
 
 /**
@@ -14,7 +22,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "courier_delivery")
 @Data
-public class CourierDelivery {
+public class Delivery {
 
     /**
      * Unique identifier
@@ -22,13 +30,6 @@ public class CourierDelivery {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-
-    /**
-     * Cargo information
-     */
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cargo_id", referencedColumnName = "id", nullable = false)
-    private Cargo cargo;
 
     /**
      * Courier information
@@ -40,23 +41,16 @@ public class CourierDelivery {
     /**
      * Recipient client information
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     private Client client;
 
     /**
-     * Sending address (for returns)
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sending_address_id", referencedColumnName = "id", nullable = false)
-    private Address sendingAddress;
-
-    /**
      * Shipping address
      */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shipping_address_id", referencedColumnName = "id", nullable = false)
-    private Address shippingAddress;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
+    private Address address;
 
     /**
      * Confirmation code
@@ -65,11 +59,29 @@ public class CourierDelivery {
     private String code;
 
     /**
+     * Number of code verification attempts
+     */
+    @Column(name = "verify_code_attempts_number", columnDefinition = "int2 default 0")
+    private Integer verifyCodeAttemptsNumber;
+
+    /**
+     * Number of delivery attempts
+     */
+    @Column(name = "delivery_attempts_number", columnDefinition = "int2 default 0")
+    private Integer deliveryAttemptsNumber;
+
+    /**
      * Courier delivery status
      */
     @Enumerated(value = EnumType.STRING)
     @Column(name = "courier_delivery_status", nullable = false)
-    private CourierDeliveryStatus courierDeliveryStatus;
+    private DeliveryStatus deliveryStatus;
+
+    /**
+     * Delivery status is synchronized with core microservice
+     */
+    @Column(name = "is_synchronized", columnDefinition = "boolean default false", nullable = false)
+    private boolean isSynchronized;
 
     /**
      * Registration time
