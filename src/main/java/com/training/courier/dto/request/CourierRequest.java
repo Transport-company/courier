@@ -1,22 +1,14 @@
-package com.training.courier.dto.response;
+package com.training.courier.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
- * Response object for courier request
+ * Object used to transfer data from request to controller
  */
 @Data
-public class CourierResponse {
-
-    /**
-     * Unique identifier
-     */
-    @Schema(description = "Unique identifier",
-            example = "1")
-    private Long id;
+public class CourierRequest {
 
     /**
      * First name
@@ -59,16 +51,4 @@ public class CourierResponse {
     @Schema(description = "Working city",
             example = "Moscow")
     private String city;
-
-    /**
-     * Registration time
-     */
-    @Schema(description = "Registration time")
-    private LocalDateTime created;
-
-    /**
-     * Update time
-     */
-    @Schema(description = "Update time")
-    private LocalDateTime updated;
 }
