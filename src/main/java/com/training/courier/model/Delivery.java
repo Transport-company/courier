@@ -20,7 +20,7 @@ import org.hibernate.annotations.UpdateTimestamp;
  * Courier delivery entity
  */
 @Entity
-@Table(name = "courier_delivery")
+@Table(name = "delivery")
 @Data
 public class Delivery {
 

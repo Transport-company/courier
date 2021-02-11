@@ -1,8 +1,10 @@
 package com.training.courier.service;
 
+import com.training.courier.exception.CourierAlreadyExistsException;
 import com.training.courier.exception.CourierNotFoundException;
 import com.training.courier.model.Courier;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Service for work with {@link Courier courier} entity
@@ -20,11 +22,12 @@ public interface CourierService {
     Courier getById(Long id);
 
     /**
-     * Finds all {@link List<Courier> couriers} in courier microservice repository.
+     * Finds parametrized page of {@link Courier courier} in courier microservice repository.
      *
-     * @return {@link List<Courier> couriers}
+     * @param pageable Page parameters
+     * @return {@link Page<Courier> couriers}
      */
-    List<Courier> getAll();
+    Page<Courier> getAll(Pageable pageable);
 
     /**
      * Saves new {@link Courier courier} in courier microservice repository.
@@ -32,6 +35,8 @@ public interface CourierService {
      * @param courier {@link Courier courier} to be saved
      * @return {@link Courier courier}
      * @throws IllegalArgumentException in case of invalid input {@link Courier courier} provided
+     * @throws CourierAlreadyExistsException in case of already existing {@link Courier courier}
+     * with provided phone number
      */
     Courier save(Courier courier);
 
@@ -43,9 +48,10 @@ public interface CourierService {
      * @return {@link Courier courier}
      * @throws IllegalArgumentException in case of invalid input id or{@link Courier courier} provided
      * @throws CourierNotFoundException in case of non existing {@link Courier courier} in repository
+     * @throws CourierAlreadyExistsException in case of already existing {@link Courier courier}
+     * with provided phone number
      */
     Courier update(Long id, Courier courier);
-
 
     /**
      * Deletes {@link Courier courier} from courier microservice repository.

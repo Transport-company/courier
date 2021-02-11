@@ -1,8 +1,7 @@
 package com.training.courier.controller;
 
 import com.training.courier.Urls;
-import com.training.courier.dto.request.CourierCreationRequest;
-import com.training.courier.dto.request.CourierUpdatingRequest;
+import com.training.courier.dto.request.CourierRequest;
 import com.training.courier.dto.response.CourierResponse;
 import com.training.courier.dto.response.CouriersPagedResponse;
 import com.training.courier.dto.response.SalaryResponse;
@@ -12,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,24 +52,27 @@ public interface CourierController {
             Pageable pageable);
 
     @Operation(summary = "Create new courier", responses = {
-            @ApiResponse(responseCode = "200", description = "Success", content = @Content(
+            @ApiResponse(responseCode = "201", description = "Successfully created", content = @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation =  CourierResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Already exists", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     @PostMapping(Urls.Couriers.FULL)
     ResponseEntity<CourierResponse> create(@Parameter(name = "createCourierRequest",
                     description = "Courier data contained in create request",
-                    schema = @Schema(implementation = CourierCreationRequest.class),
+                    schema = @Schema(implementation = CourierRequest.class),
                     required = true)
-            @RequestBody CourierCreationRequest courierCreationRequest);
+            @Valid
+            @RequestBody CourierRequest courierRequest);
 
     @Operation(summary = "Edit existing courier information", responses = {
-            @ApiResponse(responseCode = "200", description = "Success", content = @Content(
+            @ApiResponse(responseCode = "201", description = "Successfully updated", content = @Content(
                     mediaType = "application/json",
                     schema = @Schema(implementation = CourierResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Courier not found", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Already exists", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     @PutMapping(Urls.Couriers.Id.FULL)
     ResponseEntity<CourierResponse> update(@Parameter(name = "id",
@@ -78,12 +81,13 @@ public interface CourierController {
             @PathVariable("id") Long id,
             @Parameter(name = "courierUpdatingRequest",
                     description = "Courier data contained in update request",
-                    schema = @Schema(implementation = CourierUpdatingRequest.class),
+                    schema = @Schema(implementation = CourierRequest.class),
                     required = true)
-            @RequestBody CourierUpdatingRequest courierUpdatingRequest);
+            @Valid
+            @RequestBody CourierRequest courierUpdatingRequest);
 
     @Operation(summary = "Delete existing courier", responses = {
-            @ApiResponse(responseCode = "200", description = "Success", content = @Content),
+            @ApiResponse(responseCode = "200", description = "Successfully deleted", content = @Content),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "404", description = "Courier not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})

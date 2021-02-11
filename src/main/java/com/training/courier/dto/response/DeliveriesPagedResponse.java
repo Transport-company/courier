@@ -7,7 +7,6 @@ import lombok.Data;
 /**
  * Paged response object for deliveries request
  */
-@Schema(description = "Paged response object for deliveries request")
 @Data
 public class DeliveriesPagedResponse {
 
