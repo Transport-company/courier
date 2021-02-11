@@ -1,3 +1,1 @@
-# The courier micro service for Transport company
-
-Training project
+# The courier microservice for Transport company

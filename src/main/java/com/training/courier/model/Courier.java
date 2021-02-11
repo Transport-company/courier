@@ -1,13 +1,16 @@
 package com.training.courier.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 
 /**
@@ -53,7 +56,7 @@ public class Courier {
     /**
      * Phone number
      */
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
     /**
@@ -61,12 +64,6 @@ public class Courier {
      */
     @Column(name = "city", nullable = false)
     private String city;
-
-    /**
-     * Deliveries belonging to the courier
-     */
-    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<CourierDelivery> courierDeliveries;
 
     /**
      * Registration time

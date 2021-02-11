@@ -12,9 +12,36 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 springdoc:
-    swagger-ui:
-      path: courier/doc/swagger-ui.html
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /doc/swagger-ui.html
+    operationsSorter: method
 
 server:
     servlet:
       context-path: /api/v1/courier
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+        loggerLevel: full
+  hystrix:
+    enabled: true
+
+core:
+  deliveriesApi:
+    url: https://core_url/deliveries
+
+client:
+  deliveriesApi:
+    url: https://core_url/deliveries
+
+clientdeliveriesApiurl: https://client_url/deliveries
+
+# <sec> <min> <hour> <day-of-month> <month> <day-of-week>
+cron:
+  expression: 0 0 9-20 * * MON-FRI #every hour from 9:00 to 20:00 from monday to friday
