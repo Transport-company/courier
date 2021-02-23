@@ -19,6 +19,10 @@ ALTER TABLE delivery
     ADD FOREIGN KEY (client_id) REFERENCES client (id),
     ALTER COLUMN courier_delivery_status TYPE varchar(30);
 
+ALTER TABLE courier
+    ADD COLUMN is_active boolean NOT NULL,
+    ADD COLUMN active_tasks_number int2 NOT NULL;
+
 ALTER TABLE salary
     ADD COLUMN delivery_id int8 NOT NULL UNIQUE,
     ADD FOREIGN KEY (delivery_id) REFERENCES delivery (id);

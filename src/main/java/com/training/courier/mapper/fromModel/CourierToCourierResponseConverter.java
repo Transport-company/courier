@@ -16,6 +16,8 @@ public class CourierToCourierResponseConverter implements Converter<Courier, Cou
         courierResponse.setBirthday(courier.getBirthday());
         courierResponse.setPhoneNumber(courier.getPhoneNumber());
         courierResponse.setCity(courier.getCity());
+        courierResponse.setIsActive(courier.getIsActive());
+        courierResponse.setActiveTasksNumber(courier.getActiveTasksNumber());
         courierResponse.setCreated(courier.getCreated());
         courierResponse.setUpdated(courier.getUpdated());
 

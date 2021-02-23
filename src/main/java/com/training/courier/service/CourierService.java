@@ -3,6 +3,7 @@ package com.training.courier.service;
 import com.training.courier.exception.CourierAlreadyExistsException;
 import com.training.courier.exception.CourierNotFoundException;
 import com.training.courier.model.Courier;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,12 +23,24 @@ public interface CourierService {
     Courier getById(Long id);
 
     /**
-     * Finds parametrized page of {@link Courier courier} in courier microservice repository.
+     * Finds parametrized page of {@link List<Courier> couriers} in courier microservice repository.
      *
      * @param pageable Page parameters
      * @return {@link Page<Courier> couriers}
      */
-    Page<Courier> getAll(Pageable pageable);
+    Page<Courier> getAllPageable(Pageable pageable);
+
+    /**
+     * Finds {@link Courier courier} in courier microservice repository by isActive = true
+     * and by city with minimal active tasks. If there are more than one suitable couriers,
+     * returns a random one of them.
+     *
+     * @param city of {@link Courier courier}
+     * @return {@link Courier courier}
+     * @throws IllegalArgumentException in case of invalid input state provided
+     * @throws CourierNotFoundException in case of non existing suitable {@link Courier courier} in repository
+     */
+    Courier getRandomActiveByCityWithMinimalActiveTasks(String city);
 
     /**
      * Saves new {@link Courier courier} in courier microservice repository.

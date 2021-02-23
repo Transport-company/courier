@@ -66,6 +66,18 @@ public class Courier {
     private String city;
 
     /**
+     * State showing whether the courier is active or not
+     */
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
+
+    /**
+     * Number of active current tasks
+     */
+    @Column(name = "active_tasks_number", nullable = false)
+    private Integer activeTasksNumber = 0;
+
+    /**
      * Registration time
      */
     @CreationTimestamp

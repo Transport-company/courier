@@ -61,6 +61,20 @@ public class CourierResponse {
     private String city;
 
     /**
+     * State showing whether the courier is active or not
+     */
+    @Schema(description = "State showing whether the courier is active or not",
+            example = "true")
+    private Boolean isActive;
+
+    /**
+     * Number of active current tasks
+     */
+    @Schema(description = "Number of active current tasks",
+            example = "2")
+    private Integer activeTasksNumber;
+
+    /**
      * Registration time
      */
     @Schema(description = "Registration time")

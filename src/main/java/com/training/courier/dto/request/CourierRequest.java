@@ -51,4 +51,11 @@ public class CourierRequest {
     @Schema(description = "Working city",
             example = "Moscow")
     private String city;
+
+    /**
+     * State showing whether the courier is active or not
+     */
+    @Schema(description = "State showing whether the courier is active or not",
+            example = "true")
+    private Boolean isActive;
 }

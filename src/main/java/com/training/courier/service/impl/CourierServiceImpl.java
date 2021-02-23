@@ -5,6 +5,8 @@ import com.training.courier.exception.CourierNotFoundException;
 import com.training.courier.model.Courier;
 import com.training.courier.repository.CourierRepository;
 import com.training.courier.service.CourierService;
+import java.util.List;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,19 +27,48 @@ public class CourierServiceImpl implements CourierService {
     @Transactional(readOnly = true)
     public Courier getById(@NonNull Long id) {
         Assert.notNull(id, "Id mustn't be null");
+
         log.info("Find courier with id: {} processed", id);
+
         Courier courier =  courierRepository.findById(id)
                 .orElseThrow(() -> new CourierNotFoundException(id));
-        log.info("Found courier with id: {}", id);
+
+        log.info("Found courier with provided id");
+
         return courier;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Courier> getAll(@NonNull Pageable pageable) {
+    public Page<Courier> getAllPageable(@NonNull Pageable pageable) {
         log.info("Find all couriers , page: {}, size: {} processed",
                 pageable.getPageNumber(), pageable.getPageSize());
+
         return courierRepository.findAll(pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Courier getRandomActiveByCityWithMinimalActiveTasks(@NonNull String city) {
+        Assert.notNull(city, "City parameter mustn't be null");
+
+        log.info("Find active courier by city: \"{}\" with minimal active tasks processed", city);
+
+        List<Courier> suitableCouriers = courierRepository.findActiveByCityWithMinimalActiveTasks(city);
+
+        if (suitableCouriers.isEmpty()) {
+            log.info("No suitable courier found");
+            return null;
+        }
+
+        log.info("Found suitable couriers: {}", suitableCouriers.size());
+
+        Random random = new Random();
+        Courier courier = suitableCouriers.get(random.nextInt(suitableCouriers.size()));
+
+        log.info("Selected courier with id: {}", courier.getId());
+
+        return courier;
     }
 
     @Override
@@ -66,8 +97,7 @@ public class CourierServiceImpl implements CourierService {
 
         log.info("Update courier with id: {} processed", id);
 
-        Courier foundCourier =  courierRepository.findById(id)
-                .orElseThrow(() -> new CourierNotFoundException(id));
+        Courier foundCourier =  getById(id);
 
         if (!courier.getPhoneNumber().equals(foundCourier.getPhoneNumber()) &&
                 courierRepository.existsByPhoneNumber(courier.getPhoneNumber())) {
@@ -79,7 +109,7 @@ public class CourierServiceImpl implements CourierService {
 
         Courier updatedCourier = courierRepository.save(courier);
 
-        log.info("Updated courier with id: {}", id);
+        log.info("Updated courier with provided id");
 
         return updatedCourier;
     }

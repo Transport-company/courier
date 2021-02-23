@@ -32,7 +32,7 @@ public class CourierControllerImpl implements CourierController {
     public ResponseEntity<CouriersPagedResponse> getAll(Pageable pageable) {
 
         return ResponseEntity.ok(
-                conversionService.convert(courierService.getAll(pageable), CouriersPagedResponse.class));
+                conversionService.convert(courierService.getAllPageable(pageable), CouriersPagedResponse.class));
     }
 
     @Override
