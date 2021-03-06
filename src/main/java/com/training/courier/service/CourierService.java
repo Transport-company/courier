@@ -28,19 +28,7 @@ public interface CourierService {
      * @param pageable Page parameters
      * @return {@link Page<Courier> couriers}
      */
-    Page<Courier> getAllPageable(Pageable pageable);
-
-    /**
-     * Finds {@link Courier courier} in courier microservice repository by isActive = true
-     * and by city with minimal active tasks. If there are more than one suitable couriers,
-     * returns a random one of them.
-     *
-     * @param city of {@link Courier courier}
-     * @return {@link Courier courier}
-     * @throws IllegalArgumentException in case of invalid input state provided
-     * @throws CourierNotFoundException in case of non existing suitable {@link Courier courier} in repository
-     */
-    Courier getRandomActiveByCityWithMinimalActiveTasks(String city);
+    Page<Courier> getList(Pageable pageable);
 
     /**
      * Saves new {@link Courier courier} in courier microservice repository.
@@ -74,4 +62,16 @@ public interface CourierService {
      * @throws CourierNotFoundException in case of non existing {@link Courier courier} in repository
      */
     void delete(Long id);
+
+    /**
+     * Finds active {@link Courier courier} in courier microservice repository
+     * by city with minimal tasks number. If there are more than one suitable couriers,
+     * returns a random one of them.
+     *
+     * @param city of {@link Courier courier}
+     * @return {@link Courier courier}
+     * @throws IllegalArgumentException in case of invalid input state provided
+     * @throws CourierNotFoundException in case of non existing suitable {@link Courier courier} in repository
+     */
+    Courier getActiveByCityWithMinimalTasksNumber(String city);
 }

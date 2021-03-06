@@ -2,6 +2,7 @@ package com.training.courier.service;
 
 import com.training.courier.exception.SalaryNotFoundException;
 import com.training.courier.model.Courier;
+import com.training.courier.model.Delivery;
 import com.training.courier.model.Salary;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,6 +21,8 @@ public interface SalaryService {
      * @throws IllegalArgumentException in case of invalid input arguments provided
      */
     Salary save(Salary salary);
+
+    Salary calculateByDelivery(Delivery delivery);
 
     /**
      * Finds all {@link List<Salary> salary entries} in courier microservice repository by courier id

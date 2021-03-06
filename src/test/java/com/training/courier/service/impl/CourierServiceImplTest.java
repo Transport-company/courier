@@ -4,70 +4,44 @@ import com.training.courier.exception.CourierAlreadyExistsException;
 import com.training.courier.exception.CourierNotFoundException;
 import com.training.courier.model.Courier;
 import com.training.courier.repository.CourierRepository;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import lombok.Data;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.openMocks;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 @Data
-public class CourierServiceImplTest {
+public class CourierServiceImplTest extends BaseTest{
 
     @InjectMocks
     private CourierServiceImpl courierService;
+    private Random random;
 
     @Mock
     CourierRepository courierRepository;
 
     private static Courier testCourier;
     private static Courier expectedCourier;
-    private static List<Courier> expectedCouriers;
+    private static List<Courier> expectedCouriersList;
 
     @BeforeAll
     private static void prepareTestData() {
-        testCourier = new Courier();
-        testCourier.setFirstName("FirstNameTest");
-        testCourier.setMiddleName("MiddleNameTest");
-        testCourier.setLastName("LastNameTest");
-        testCourier.setBirthday(LocalDate.of(2000, 02, 02));
-        testCourier.setPhoneNumber("12345678910");
-        testCourier.setCity("CityTest");
-
-        expectedCourier = new Courier();
-        expectedCourier.setId(1L);
-        expectedCourier.setFirstName(testCourier.getFirstName());
-        expectedCourier.setMiddleName(testCourier.getMiddleName());
-        expectedCourier.setLastName(testCourier.getLastName());
-        expectedCourier.setBirthday(testCourier.getBirthday());
-        expectedCourier.setPhoneNumber(testCourier.getPhoneNumber());
-        expectedCourier.setCity(testCourier.getCity());
-        expectedCourier.setCreated(LocalDateTime.of(2020, 01, 01, 01, 01));
-        expectedCourier.setUpdated(LocalDateTime.of(2020, 02, 02, 02, 02));
-
-        expectedCouriers = new ArrayList<>();
-        expectedCouriers.add(expectedCourier);
-    }
-
-    @BeforeEach
-    void init() {
-        openMocks(this);
+        testCourier = TestCouriers.testCourier();
+        expectedCourier = TestCouriers.expectedCourier();
+        expectedCouriersList = TestCouriers.expectedCouriersList();
     }
 
     @Test
-    void getByIdTest() {
+    void given_id_when_getCourierById_then_returnNotNullCourier() {
         Long id = 1L;
 
         when(courierRepository.findById(id)).thenReturn(Optional.of(expectedCourier));
@@ -79,13 +53,13 @@ public class CourierServiceImplTest {
     }
 
     @Test
-    void getByIdThrowsIllegalArgumentExceptionTest() {
+    void given_invalidId_when_getCourierById_then_throwException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.getById(null));
     }
 
     @Test
-    void getByIdThrowsCourierNotFoundException() {
+    void given_idOfNonExistingCourier_when_getCourierById_then_throwException() {
         Long id = 1L;
 
         when(courierRepository.findById(id)).thenReturn(Optional.empty());
@@ -94,23 +68,22 @@ public class CourierServiceImplTest {
                 .isThrownBy(() -> courierService.getById(id));
     }
 
-
     @Test
-    void getAllTest() {
+    void given_pageParameters_when_getAllCouriers_than_returnNotNullPagedCouriersList() {
         PageRequest pageRequest = PageRequest.of(0, 5);
 
         when(courierRepository.findAll(pageRequest))
-                .thenReturn(new PageImpl<>(expectedCouriers));
+                .thenReturn(new PageImpl<>(expectedCouriersList));
 
-        Page<Courier> actualPage = courierService.getAll(pageRequest);
+        Page<Courier> actualPage = courierService.getList(pageRequest);
 
         assertThat(actualPage).isNotNull();
         assertThat(actualPage.getContent()).isNotNull()
-                .isEqualTo(expectedCouriers);
+                .isEqualTo(expectedCouriersList);
     }
 
     @Test
-    void saveTest() {
+    void given_courier_when_saveCourier_then_returnNotNullCourier() {
         when(courierRepository.save(testCourier))
                 .thenReturn(expectedCourier);
 
@@ -121,13 +94,13 @@ public class CourierServiceImplTest {
     }
 
     @Test
-    void saveThrowsIllegalArgumentExceptionTest() {
+    void given_invalidCourier_when_saveCourier_then_throwException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.save(null));
     }
 
     @Test
-    void saveThrowsCourierAlreadyExistsExceptionTest() {
+    void given_alreadyExistingByPhoneNumberCourier_when_saveCourier_then_throwException() {
         when(courierRepository.existsByPhoneNumber(testCourier.getPhoneNumber()))
                 .thenReturn(true);
 
@@ -136,7 +109,7 @@ public class CourierServiceImplTest {
     }
 
     @Test
-    void updateTest() {
+    void given_idAndCourier_when_updateCourier_then_returnNotNullCourier() {
         Long id = 1L;
 
         when(courierRepository.findById(id))
@@ -152,20 +125,30 @@ public class CourierServiceImplTest {
     }
 
     @Test
-    void updateThrowsIllegalArgumentExceptionWhenIdIsNullTest() {
+    void given_invalidId_when_updateCourier_then_throwException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.update(null, testCourier));
     }
 
     @Test
-    void updateThrowsIllegalArgumentExceptionWhenCourierIsNullTest() {
+    void given_invalidCourier_when_updateCourier_then_throwException() {
         Long id = 1L;
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.update(id, null));
     }
 
     @Test
-    void updateThrowsCourierAlreadyExistsExceptionTest() {
+    void given_idOfNonExistingCourier_when_updateCourier_then_throwException() {
+        Long id = 1L;
+
+        when(courierRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(CourierNotFoundException.class)
+                .isThrownBy(() -> courierService.update(id, testCourier));
+    }
+
+    @Test
+    void given_alreadyExistingByPhoneNumberCourier_when_updateCourier_then_throwException() {
         Long id = 1L;
         testCourier.setPhoneNumber("12345678911");
 
@@ -179,18 +162,48 @@ public class CourierServiceImplTest {
     }
 
     @Test
-    void deleteThrowsIllegalArgumentExceptionTest() {
+    void given_invalidId_when_deleteCourier_then_throwException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.delete(null));
     }
 
     @Test
-    void deleteThrowsCourierNotFoundException() {
+    void given_idOfNonExistingCourier_when_deleteCourier_then_throwException() {
         Long id = 1L;
 
         when(courierRepository.findById(id)).thenReturn(Optional.empty());
 
         assertThatExceptionOfType(CourierNotFoundException.class)
                 .isThrownBy(() -> courierService.delete(id));
+    }
+
+    @Test
+    void given_city_when_getActiveCourierByCityWithMinimalTasksNumber_then_returnNotNullCourier() {
+        String city = "testCity";
+
+        when(courierRepository.findActiveByCityWithMinimalTasksNumber(city))
+                .thenReturn(expectedCouriersList);
+
+        Courier actualCourier = courierService.getActiveByCityWithMinimalTasksNumber(city);
+
+        assertThat(actualCourier).isNotNull()
+                .isEqualTo(expectedCourier);
+    }
+
+    @Test
+    void given_invalidCity_when_getActiveCourierByCityWithMinimalTasksNumber_then_throwException() {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> courierService.getActiveByCityWithMinimalTasksNumber(null));
+    }
+
+    @Test
+    void given_cityWithNotExistingActiveCourier_when_getActiveCourierByCityWithMinimalTasksNumber_then_throwException() {
+        String city = "testCityWithNotExistingCourier";
+
+        when(courierRepository.findActiveByCityWithMinimalTasksNumber(city))
+                .thenThrow(new CourierNotFoundException(city));
+
+        assertThatExceptionOfType(CourierNotFoundException.class)
+                .isThrownBy(() -> courierService.getActiveByCityWithMinimalTasksNumber(city));
     }
 }

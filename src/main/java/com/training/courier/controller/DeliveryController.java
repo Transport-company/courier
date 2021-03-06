@@ -43,7 +43,7 @@ public interface DeliveryController {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     @GetMapping(Urls.Deliveries.FULL)
-    ResponseEntity<DeliveriesPagedResponse> getAll(@Parameter(name = "pageable",
+    ResponseEntity<DeliveriesPagedResponse> getList(@Parameter(name = "pageable",
                     description = "Response page parameters",
                     schema = @Schema(implementation = Pageable.class),
                     required = true)
@@ -69,11 +69,11 @@ public interface DeliveryController {
             @ApiResponse(responseCode = "404", description = "Delivery not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     @PatchMapping(Urls.Deliveries.Id.Status.FULL)
-    ResponseEntity<String> updateDeliveryStatus(@Parameter(name = "id",
+    ResponseEntity<String> changeStatus(@Parameter(name = "id",
                     description = "Delivery unique identifier",
                     required = true)
             @PathVariable("id") Long id,
-            @Parameter(name = "status",
+                                        @Parameter(name = "status",
                     description = "Delivery status to update to",
                     schema = @Schema(implementation = DeliveryStatusRequest.class),
                     required = true)
@@ -81,9 +81,8 @@ public interface DeliveryController {
 
     @Operation(summary = "Verify code and update delivery status", responses = {
             @ApiResponse(responseCode = "200", description = "Success", content = @Content),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Delivery not found", content = @Content),
-            @ApiResponse(responseCode = "500", description = "Wrong confirmation code", content = @Content)})
+            @ApiResponse(responseCode = "400", description = "Wrong confirmation code", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Delivery not found", content = @Content)})
     @PatchMapping(Urls.Deliveries.Id.FULL)
     ResponseEntity<String> verifyCodeAndUpdateDeliveryStatus(@Parameter(name = "id",
                     description = "Delivery unique identifier",
@@ -91,6 +90,7 @@ public interface DeliveryController {
             @PathVariable("id") Long id,
             @Parameter(name = "code",
                     description = "Delivery confirmation code",
+                    schema = @Schema(example = "1234"),
                     required = true)
             @RequestBody String code);
 }

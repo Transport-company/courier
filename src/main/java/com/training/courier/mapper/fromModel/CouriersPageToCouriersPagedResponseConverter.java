@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
 
+@Component
 @RequiredArgsConstructor
 public class CouriersPageToCouriersPagedResponseConverter implements Converter<Page<Courier>, CouriersPagedResponse> {
 
@@ -14,17 +16,18 @@ public class CouriersPageToCouriersPagedResponseConverter implements Converter<P
 
     @Override
     public CouriersPagedResponse convert(Page<Courier> page) {
-        CouriersPagedResponse couriersPagedResponse = new CouriersPagedResponse();
 
-        couriersPagedResponse.setContent(page.getContent()
-                .stream()
-                .map(courierToCourierResponseConverter::convert)
-                .collect(Collectors.toList()));
-        couriersPagedResponse.setPageSize(page.getSize());
-        couriersPagedResponse.setPageNumber(page.getNumber());
-        couriersPagedResponse.setPageNumber(page.getTotalPages());
-        couriersPagedResponse.setTotalElements(page.getNumberOfElements());
-
-        return couriersPagedResponse;
+        return CouriersPagedResponse.builder()
+                .content(
+                        page
+                                .getContent()
+                                .stream()
+                                .map(courierToCourierResponseConverter::convert)
+                                .collect(Collectors.toList()))
+                .pageSize(page.getSize())
+                .pageNumber(page.getNumber())
+                .totalPages(page.getTotalPages())
+                .totalElements(page.getNumberOfElements())
+                .build();
     }
 }

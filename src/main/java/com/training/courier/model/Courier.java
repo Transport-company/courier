@@ -8,7 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -19,6 +22,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "courier")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Courier {
 
     /**
@@ -68,14 +74,14 @@ public class Courier {
     /**
      * State showing whether the courier is active or not
      */
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    @Column(name = "active", nullable = false)
+    private Boolean active;
 
     /**
      * Number of active current tasks
      */
-    @Column(name = "active_tasks_number", nullable = false)
-    private Integer activeTasksNumber = 0;
+    @Column(name = "tasks_number", nullable = false)
+    private Integer tasksNumber;
 
     /**
      * Registration time

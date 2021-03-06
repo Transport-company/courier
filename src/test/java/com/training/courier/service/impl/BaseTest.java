@@ -22,5 +22,4 @@ public class BaseTest {
     void finishMocking() {
         mockitoSession.finishMocking();
     }
-
 }

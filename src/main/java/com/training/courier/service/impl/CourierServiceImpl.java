@@ -7,8 +7,10 @@ import com.training.courier.repository.CourierRepository;
 import com.training.courier.service.CourierService;
 import java.util.List;
 import java.util.Random;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
@@ -22,53 +24,34 @@ import org.springframework.util.Assert;
 public class CourierServiceImpl implements CourierService {
 
     private final CourierRepository courierRepository;
+    private final Random random = new Random();
 
     @Override
     @Transactional(readOnly = true)
     public Courier getById(@NonNull Long id) {
         Assert.notNull(id, "Id mustn't be null");
 
-        log.info("Find courier with id: {} processed", id);
+        log.debug("Started: get courier by id: {}", id);
 
         Courier courier =  courierRepository.findById(id)
                 .orElseThrow(() -> new CourierNotFoundException(id));
 
-        log.info("Found courier with provided id");
+        log.debug("Ended: get courier by id");
 
         return courier;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Courier> getAllPageable(@NonNull Pageable pageable) {
-        log.info("Find all couriers , page: {}, size: {} processed",
+    public Page<Courier> getList(@NonNull Pageable pageable) {
+        log.debug("Started: get all couriers , page: {}, size: {} processed",
                 pageable.getPageNumber(), pageable.getPageSize());
 
-        return courierRepository.findAll(pageable);
-    }
+        Page<Courier> couriersPagedList = courierRepository.findAll(pageable);
 
-    @Override
-    @Transactional(readOnly = true)
-    public Courier getRandomActiveByCityWithMinimalActiveTasks(@NonNull String city) {
-        Assert.notNull(city, "City parameter mustn't be null");
+        log.debug("Ended: get all couriers");
 
-        log.info("Find active courier by city: \"{}\" with minimal active tasks processed", city);
-
-        List<Courier> suitableCouriers = courierRepository.findActiveByCityWithMinimalActiveTasks(city);
-
-        if (suitableCouriers.isEmpty()) {
-            log.info("No suitable courier found");
-            return null;
-        }
-
-        log.info("Found suitable couriers: {}", suitableCouriers.size());
-
-        Random random = new Random();
-        Courier courier = suitableCouriers.get(random.nextInt(suitableCouriers.size()));
-
-        log.info("Selected courier with id: {}", courier.getId());
-
-        return courier;
+        return couriersPagedList;
     }
 
     @Override
@@ -76,15 +59,17 @@ public class CourierServiceImpl implements CourierService {
     public Courier save(@NonNull Courier courier) {
         Assert.notNull(courier, "Courier object mustn't be null");
 
-        log.info("Save courier processed");
+        log.debug("Started: save courier");
 
         if (courierRepository.existsByPhoneNumber(courier.getPhoneNumber())) {
             throw new CourierAlreadyExistsException(courier.getPhoneNumber());
         }
 
+        courier.setTasksNumber(0);
+
         Courier savedCourier = courierRepository.save(courier);
 
-        log.info("Saved courier with id: {}", savedCourier.getId());
+        log.debug("Ended: save courier");
 
         return savedCourier;
     }
@@ -95,7 +80,7 @@ public class CourierServiceImpl implements CourierService {
         Assert.notNull(id, "Id mustn't be null");
         Assert.notNull(courier, "Courier object mustn't be null");
 
-        log.info("Update courier with id: {} processed", id);
+        log.debug("Started: update courier with id: {}", id);
 
         Courier foundCourier =  getById(id);
 
@@ -105,11 +90,12 @@ public class CourierServiceImpl implements CourierService {
         }
 
         courier.setId(id);
+        courier.setTasksNumber(foundCourier.getTasksNumber());
         courier.setCreated(foundCourier.getCreated());
 
         Courier updatedCourier = courierRepository.save(courier);
 
-        log.info("Updated courier with provided id");
+        log.debug("Ended: update courier");
 
         return updatedCourier;
     }
@@ -119,10 +105,38 @@ public class CourierServiceImpl implements CourierService {
     public void delete(@NonNull Long id) {
         Assert.notNull(id, "Id mustn't be null");
 
-        log.info("Delete courier with id: {} processed", id);
+        log.debug("Started: delete courier with id: {}", id);
 
         courierRepository.delete(getById(id));
 
-        log.info("Deleted courier with id: {}", id);
+        log.debug("Ended: delete courier");
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Courier getActiveByCityWithMinimalTasksNumber(@NonNull String city) {
+        Assert.notNull(city, "City parameter mustn't be null");
+
+        log.debug("Started: get active courier by city: \"{}\" with minimal tasks number", city);
+
+        List<Courier> suitableCouriers = courierRepository.findActiveByCityWithMinimalTasksNumber(city);
+
+        if (suitableCouriers.isEmpty()) {
+            throw new CourierNotFoundException(city);
+        }
+
+        Courier courier = suitableCouriers.get(random.nextInt(suitableCouriers.size()));
+
+        log.debug("Ended: get active courier by city: \"{}\" with minimal tasks number. Selected courier with id: {}", city, courier.getId());
+
+        return courier;
+    }
+
+    void incrementTasksNumber(Courier courier) {
+        courierRepository.incrementTasksNumber(courier);
+    }
+
+    void decrementTasksNumber(Courier courier) {
+        courierRepository.decrementTasksNumber(courier);
     }
 }

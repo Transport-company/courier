@@ -11,10 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 
 /**
  * Courier delivery entity
@@ -22,6 +25,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "delivery")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Delivery {
 
     /**
@@ -34,23 +40,26 @@ public class Delivery {
     /**
      * Courier information
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "courier_id", referencedColumnName = "id")
     private Courier courier;
 
     /**
      * Recipient client information
      */
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
     private Client client;
 
     /**
      * Shipping address
      */
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private Address address;
+
+    @Transient
+    private Cargo cargo;
 
     /**
      * Confirmation code
@@ -78,10 +87,10 @@ public class Delivery {
     private DeliveryStatus deliveryStatus;
 
     /**
-     * Delivery status is synchronized with core microservice
+     * State of synchronization with core microservice
      */
-    @Column(name = "is_synchronized", columnDefinition = "boolean default false", nullable = false)
-    private boolean isSynchronized;
+    @Column(name = "synchronization", columnDefinition = "boolean default false", nullable = false)
+    private Boolean synchronization;
 
     /**
      * Registration time

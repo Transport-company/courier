@@ -7,11 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * Response object for courier request
+ * Response object for client request
  */
 @Data
 @Builder
-public class CourierResponse {
+public class ClientResponse {
 
     /**
      * Unique identifier
@@ -22,50 +22,38 @@ public class CourierResponse {
     /**
      * First name
      */
-    @Schema(description = "First name", example = "Ivan")
+    @Schema(description = "First name", example = "Petr")
     private final String firstName;
 
     /**
      * Middle name
      */
-    @Schema(description = "Middle name", example = "Ivanovich")
+    @Schema(description = "Middle name", example = "Petrovich")
     private final String middleName;
 
     /**
      * Last name
      */
-    @Schema(description = "Last name", example = "Ivanov")
+    @Schema(description = "Last name", example = "Petrov")
     private final String lastName;
 
     /**
      * Date of birth
      */
-    @Schema(description = "Date of birth", example = "10.01.1980")
+    @Schema(description = "Date of birth", example = "20.02.1970")
     private final LocalDate birthday;
 
     /**
      * Phone number
      */
-    @Schema(description = "Phone number", example = "89085554466")
+    @Schema(description = "Phone number", example = "89054446622")
     private final String phoneNumber;
 
     /**
-     * Working city
+     * Email
      */
-    @Schema(description = "Working city", example = "Moscow")
-    private final String city;
-
-    /**
-     * State showing whether the courier is active or not
-     */
-    @Schema(description = "State showing whether the courier is active or not", example = "true")
-    private final Boolean active;
-
-    /**
-     * Number of active current tasks
-     */
-    @Schema(description = "Number of active current tasks", example = "2")
-    private final Integer tasksNumber;
+    @Schema(description = "email", example = "petrovPP@yahoo.com")
+    private final String email;
 
     /**
      * Registration time

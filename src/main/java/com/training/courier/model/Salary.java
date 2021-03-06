@@ -36,14 +36,14 @@ public class Salary {
     /**
      * Courier information
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "courier_id", referencedColumnName = "id", nullable = false)
     private Courier courier;
 
     /**
      * Delivery information
      */
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id", referencedColumnName = "id", nullable = false, unique = true)
     private Delivery delivery;
 
