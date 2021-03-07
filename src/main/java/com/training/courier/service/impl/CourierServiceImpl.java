@@ -5,12 +5,10 @@ import com.training.courier.exception.CourierNotFoundException;
 import com.training.courier.model.Courier;
 import com.training.courier.repository.CourierRepository;
 import com.training.courier.service.CourierService;
+import com.training.courier.util.RandomCreator;
 import java.util.List;
-import java.util.Random;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.NonNull;
@@ -24,7 +22,6 @@ import org.springframework.util.Assert;
 public class CourierServiceImpl implements CourierService {
 
     private final CourierRepository courierRepository;
-    private final Random random = new Random();
 
     @Override
     @Transactional(readOnly = true)
@@ -125,7 +122,7 @@ public class CourierServiceImpl implements CourierService {
             throw new CourierNotFoundException(city);
         }
 
-        Courier courier = suitableCouriers.get(random.nextInt(suitableCouriers.size()));
+        Courier courier = suitableCouriers.get(RandomCreator.generateInt(suitableCouriers.size()));
 
         log.debug("Ended: get active courier by city: \"{}\" with minimal tasks number. Selected courier with id: {}", city, courier.getId());
 

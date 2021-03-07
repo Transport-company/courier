@@ -6,7 +6,6 @@ import com.training.courier.model.Courier;
 import com.training.courier.repository.CourierRepository;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import lombok.Data;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -24,7 +23,6 @@ public class CourierServiceImplTest extends BaseTest{
 
     @InjectMocks
     private CourierServiceImpl courierService;
-    private Random random;
 
     @Mock
     CourierRepository courierRepository;

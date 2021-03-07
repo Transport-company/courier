@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: courier service
   datasource:
     initialization-mode: always
     platform: postgresql
@@ -11,6 +13,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  output:
+    ansi:
+      enabled: ALWAYS
 
 springdoc:
   api-docs:
@@ -30,9 +35,19 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 10000
-        readTimeout: 10000
+#        connectTimeout: 10000
+#        readTimeout: 10000
         loggerLevel: full
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
 
 core:
   deliveriesApi:
