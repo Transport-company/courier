@@ -84,11 +84,11 @@ public interface DeliveryController {
             @ApiResponse(responseCode = "400", description = "Wrong confirmation code", content = @Content),
             @ApiResponse(responseCode = "404", description = "Delivery not found", content = @Content)})
     @PatchMapping(Urls.Deliveries.Id.FULL)
-    ResponseEntity<String> verifyCodeAndUpdateDeliveryStatus(@Parameter(name = "id",
+    ResponseEntity<String> handOverToClient(@Parameter(name = "id",
                     description = "Delivery unique identifier",
                     required = true)
             @PathVariable("id") Long id,
-            @Parameter(name = "code",
+                                            @Parameter(name = "code",
                     description = "Delivery confirmation code",
                     schema = @Schema(example = "1234"),
                     required = true)

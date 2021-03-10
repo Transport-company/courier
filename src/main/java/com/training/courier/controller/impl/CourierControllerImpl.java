@@ -50,7 +50,7 @@ public class CourierControllerImpl implements CourierController {
                 CouriersPagedResponse.class);
 
         log.info("Ended: get all couriers, found entries: {}",
-                couriersPagedResponse.getContent().size());
+                couriersPagedResponse.getTotalElements());
 
         return ResponseEntity.ok(couriersPagedResponse);
     }

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 @Slf4j
-public class ExceptionController extends ResponseEntityExceptionHandler {
+public class CourierExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final String TIMESTAMP = "Timestamp";
     private static final String STATUS = "Status";
@@ -29,7 +29,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     private static final String DELIMITER = ": ";
 
     @ExceptionHandler(CourierNotFoundException.class)
-    public ResponseEntity<Object> handlerCourierNotFoundException(
+    public ResponseEntity<Object> handleCourierNotFoundException(
             CourierNotFoundException ex,
             WebRequest request) {
 
@@ -37,7 +37,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CourierAlreadyExistsException.class)
-    public ResponseEntity<Object> handlerCourierAlreadyExistsException(
+    public ResponseEntity<Object> handleCourierAlreadyExistsException(
             CourierAlreadyExistsException ex,
             WebRequest request) {
 
@@ -45,7 +45,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(DeliveryNotFoundException.class)
-    public ResponseEntity<Object> handlerDeliveryNotFoundException(
+    public ResponseEntity<Object> handleDeliveryNotFoundException(
             DeliveryNotFoundException ex,
             WebRequest request) {
 
@@ -53,7 +53,7 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CodeVerificationFailException.class)
-    public ResponseEntity<Object> handlerCodeVerificationFailException(
+    public ResponseEntity<Object> handleCodeVerificationFailException(
             CodeVerificationFailException ex,
             WebRequest request) {
 

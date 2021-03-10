@@ -39,7 +39,7 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_id_when_getCourierById_then_returnNotNullCourier() {
+    void givenId_whenGetCourierById_thenReturnNotNullCourier() {
         Long id = 1L;
 
         when(courierRepository.findById(id)).thenReturn(Optional.of(expectedCourier));
@@ -51,13 +51,13 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_invalidId_when_getCourierById_then_throwException() {
+    void givenInvalidId_whenGetCourierById_thenThrowException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.getById(null));
     }
 
     @Test
-    void given_idOfNonExistingCourier_when_getCourierById_then_throwException() {
+    void givenIdOfNonExistingCourier_whenGetCourierById_thenThrowException() {
         Long id = 1L;
 
         when(courierRepository.findById(id)).thenReturn(Optional.empty());
@@ -67,7 +67,7 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_pageParameters_when_getAllCouriers_than_returnNotNullPagedCouriersList() {
+    void givenPageParameters_whenGetAllCouriers_thanReturnNotNullPagedCouriersList() {
         PageRequest pageRequest = PageRequest.of(0, 5);
 
         when(courierRepository.findAll(pageRequest))
@@ -81,7 +81,7 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_courier_when_saveCourier_then_returnNotNullCourier() {
+    void givenCourier_whenSaveCourier_thenReturnNotNullCourier() {
         when(courierRepository.save(testCourier))
                 .thenReturn(expectedCourier);
 
@@ -92,13 +92,13 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_invalidCourier_when_saveCourier_then_throwException() {
+    void givenInvalidCourier_whenSaveCourier_thenThrowException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.save(null));
     }
 
     @Test
-    void given_alreadyExistingByPhoneNumberCourier_when_saveCourier_then_throwException() {
+    void givenAlreadyExistingByPhoneNumberCourier_whenSaveCourier_thenThrowException() {
         when(courierRepository.existsByPhoneNumber(testCourier.getPhoneNumber()))
                 .thenReturn(true);
 
@@ -107,7 +107,7 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_idAndCourier_when_updateCourier_then_returnNotNullCourier() {
+    void givenIdAndCourier_whenUpdateCourier_thenReturnNotNullCourier() {
         Long id = 1L;
 
         when(courierRepository.findById(id))
@@ -123,20 +123,20 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_invalidId_when_updateCourier_then_throwException() {
+    void givenInvalidId_whenUpdateCourier_thenThrowException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.update(null, testCourier));
     }
 
     @Test
-    void given_invalidCourier_when_updateCourier_then_throwException() {
+    void givenInvalidCourier_whenUpdateCourier_thenThrowException() {
         Long id = 1L;
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.update(id, null));
     }
 
     @Test
-    void given_idOfNonExistingCourier_when_updateCourier_then_throwException() {
+    void givenIdOfNonExistingCourier_whenUpdateCourier_thenThrowException() {
         Long id = 1L;
 
         when(courierRepository.findById(id)).thenReturn(Optional.empty());
@@ -146,7 +146,7 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_alreadyExistingByPhoneNumberCourier_when_updateCourier_then_throwException() {
+    void givenAlreadyExistingByPhoneNumberCourier_whenUpdateCourier_thenThrowException() {
         Long id = 1L;
         testCourier.setPhoneNumber("12345678911");
 
@@ -160,13 +160,13 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_invalidId_when_deleteCourier_then_throwException() {
+    void givenInvalidId_whenDeleteCourier_thenThrowException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.delete(null));
     }
 
     @Test
-    void given_idOfNonExistingCourier_when_deleteCourier_then_throwException() {
+    void givenIdOfNonExistingCourier_whenDeleteCourier_thenThrowException() {
         Long id = 1L;
 
         when(courierRepository.findById(id)).thenReturn(Optional.empty());
@@ -176,7 +176,7 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_city_when_getActiveCourierByCityWithMinimalTasksNumber_then_returnNotNullCourier() {
+    void givenCity_whenGetActiveCourierByCityWithMinimalTasksNumber_thenReturnNotNullCourier() {
         String city = "testCity";
 
         when(courierRepository.findActiveByCityWithMinimalTasksNumber(city))
@@ -189,13 +189,13 @@ public class CourierServiceImplTest extends BaseTest{
     }
 
     @Test
-    void given_invalidCity_when_getActiveCourierByCityWithMinimalTasksNumber_then_throwException() {
+    void givenInvalidCity_whenGetActiveCourierByCityWithMinimalTasksNumber_thenThrowException() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> courierService.getActiveByCityWithMinimalTasksNumber(null));
     }
 
     @Test
-    void given_cityWithNotExistingActiveCourier_when_getActiveCourierByCityWithMinimalTasksNumber_then_throwException() {
+    void givenCityWithNotExistingActiveCourier_whenGetActiveCourierByCityWithMinimalTasksNumber_thenThrowException() {
         String city = "testCityWithNotExistingCourier";
 
         when(courierRepository.findActiveByCityWithMinimalTasksNumber(city))
