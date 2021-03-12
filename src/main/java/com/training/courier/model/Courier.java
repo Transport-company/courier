@@ -1,13 +1,19 @@
 package com.training.courier.model;
 
-import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 /**
@@ -16,6 +22,9 @@ import java.util.Set;
 @Entity
 @Table(name = "courier")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Courier {
 
     /**
@@ -53,7 +62,7 @@ public class Courier {
     /**
      * Phone number
      */
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
     /**
@@ -63,10 +72,16 @@ public class Courier {
     private String city;
 
     /**
-     * Deliveries belonging to the courier
+     * State showing whether the courier is active or not
      */
-    @OneToMany(mappedBy = "courier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<CourierDelivery> courierDeliveries;
+    @Column(name = "active", nullable = false)
+    private Boolean active;
+
+    /**
+     * Number of active current tasks
+     */
+    @Column(name = "tasks_number", nullable = false)
+    private Integer tasksNumber;
 
     /**
      * Registration time

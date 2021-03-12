@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: courier service
   datasource:
     initialization-mode: always
     platform: postgresql
@@ -7,14 +9,58 @@ spring:
     username: postgres
     password: postgres
   jpa:
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  output:
+    ansi:
+      enabled: ALWAYS
 
 springdoc:
-    swagger-ui:
-      path: courier/doc/swagger-ui.html
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /doc/swagger-ui.html
+    operationsSorter: method
 
 server:
-    servlet:
-      context-path: /api/v1/courier
+  port: 8081
+  servlet:
+    context-path: /api/v1/courier
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+
+core:
+  deliveriesApi:
+    url: http://localhost:8080/api/v1/core/deliveries
+    statusToFilterBy: ON_COURIER_DELIVERY
+
+value:
+  maxNumberOfCodeVerificationAttempts: 3
+
+# <sec> <min> <hour> <day-of-month> <month> <day-of-week>
+cron:
+  expression:
+#    getPendingDeliveries: 0 * * * * *
+    getPendingDeliveries: 0 0 9-20 * * MON-FRI #every hour from 9:00 to 20:00 from monday to friday
+#    assignCouriers: 10 * * * * *
+    assignCouriers: 0 5 9-20 * * MON-FRI #every hour from 9:05 to 20:05 from monday to friday
